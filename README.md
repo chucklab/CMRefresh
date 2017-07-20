@@ -51,8 +51,8 @@ __weak typeof(self) weakSelf = self;
 ```
 
 ## Requirements
-This library requires a deployment target of iOS 6.0 or greater.
+This library requires a deployment target of iOS 8.0 or greater.
 
 ## License
-MCIconAlertController is provided under the MIT license. See LICENSE file for details.
+CMRefresh is provided under the MIT license. See LICENSE file for details.
 
