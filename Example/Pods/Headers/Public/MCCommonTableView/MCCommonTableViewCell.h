@@ -1,0 +1,1 @@
+../../../MCCommonTableView/Classes/MCCommonTableViewCell.h
