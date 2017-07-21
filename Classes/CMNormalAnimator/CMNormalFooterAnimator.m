@@ -31,6 +31,10 @@ static NSString * const DefaultLoadingDescription = @"Loading...";
 
 @interface CMNormalFooterAnimator ()
 
+@property (nonatomic, copy) NSString * loadingMoreDescription;
+@property (nonatomic, copy) NSString * noMoreDataDescription;
+@property (nonatomic, copy) NSString * loadingDescription;
+
 @property (nonatomic, assign) CFTimeInterval duration;
 
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -40,7 +44,7 @@ static NSString * const DefaultLoadingDescription = @"Loading...";
 
 @implementation CMNormalFooterAnimator
 
-- (instancetype)init {
+- (instancetype)initWithLoadingMoreDescription:(NSString *)loadingMoreDescription noMoreDataDescription:(NSString *)noMoreDataDescription loadingDescription:(NSString *) loadingDescription {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -53,20 +57,23 @@ static NSString * const DefaultLoadingDescription = @"Loading...";
     self.execute = 50;
     self.duration = 0.3;
     
-    if (!CMIsNotEmptyString(self.loadingMoreDescription)) {
-        self.loadingMoreDescription = DefaultLoadingMoreDescription;
-    }
-    if (!CMIsNotEmptyString(self.noMoreDataDescription)) {
-        self.noMoreDataDescription = DefaultNoMoreDataDescription;
-    }
-    if (!CMIsNotEmptyString(self.loadingDescription)) {
-        self.loadingDescription = DefaultLoadingDescription;
-    }
+    // Desc
+    self.loadingMoreDescription = CMIsNotEmptyString(loadingMoreDescription) ? loadingMoreDescription : DefaultLoadingMoreDescription;
+    self.noMoreDataDescription = CMIsNotEmptyString(noMoreDataDescription) ? noMoreDataDescription : DefaultNoMoreDataDescription;
+    self.loadingDescription = CMIsNotEmptyString(loadingDescription) ? loadingDescription : DefaultLoadingDescription;
     
     // UI Setups
     [self setupTitleLabel];
     [self setupIndicatorView];
     
+    return self;
+}
+
+- (instancetype)init {
+    self = [self initWithLoadingMoreDescription: nil noMoreDataDescription: nil loadingDescription: nil];
+    if (self == nil) {
+        return nil;
+    }
     return self;
 }
 

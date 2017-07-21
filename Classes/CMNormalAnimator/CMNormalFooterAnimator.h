@@ -28,9 +28,7 @@
 
 @interface CMNormalFooterAnimator : UIView <CMRefreshProtocol>
 
-@property (nonatomic, copy) NSString * loadingMoreDescription;
-@property (nonatomic, copy) NSString * noMoreDataDescription;
-@property (nonatomic, copy) NSString * loadingDescription;
+- (instancetype)initWithLoadingMoreDescription:(NSString *)loadingMoreDescription noMoreDataDescription:(NSString *)noMoreDataDescription loadingDescription:(NSString *) loadingDescription;
 
 #pragma mark - CMRefreshProtocol
 // Custom view
