@@ -1,0 +1,24 @@
+language: objective-c
+osx_image: xcode8
+xcode_project: CMRefresh/CMRefresh.xcodeproj
+xcode_scheme: CMRefresh
+notifications:
+    email: false
+
+before_install:
+    - brew update
+    - brew outdated xctool || brew upgrade xctool
+
+script:
+    - xctool
+      -project CMRefresh/CMRefresh.xcodeproj
+      -scheme CMRefresh
+      -sdk iphonesimulator
+      build
+      test
+      CODE_SIGN_IDENTITY=""
+      CODE_SIGNING_REQUIRED=NO
+      GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES
+      GCC_GENERATE_TEST_COVERAGE_FILES=YES
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
