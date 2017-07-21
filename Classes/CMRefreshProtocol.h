@@ -48,6 +48,7 @@
 - (void)refreshEnd:(CMRefreshComponent *)view finish:(BOOL)finish;
 - (void)refresh:(CMRefreshComponent *)view progressDidChange:(CGFloat) progress;
 - (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state;
+- (void)refresh:(CMRefreshComponent *)view scrollFrameChange:(CGRect) changeFrame;
 
 @end
 

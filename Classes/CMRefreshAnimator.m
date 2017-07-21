@@ -41,6 +41,8 @@
     return self;
 }
 
+#pragma mark - CMRefreshProtocol
+
 - (void)refreshBegin:(CMRefreshComponent *)view {}
 
 - (void)refreshWillEnd:(CMRefreshComponent *)view {}
@@ -50,5 +52,7 @@
 - (void)refresh:(CMRefreshComponent *)view progressDidChange:(CGFloat) progress {}
 
 - (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state {}
+
+- (void)refresh:(CMRefreshComponent *)view scrollFrameChange:(CGRect) changeFrame {}
 
 @end

@@ -40,10 +40,4 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
-- (void)refreshBegin:(CMRefreshComponent *)view;
-- (void)refreshWillEnd:(CMRefreshComponent *)view;
-- (void)refreshEnd:(CMRefreshComponent *)view finish:(BOOL)finish;
-- (void)refresh:(CMRefreshComponent *)view progressDidChange:(CGFloat) progress;
-- (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state;
-
 @end

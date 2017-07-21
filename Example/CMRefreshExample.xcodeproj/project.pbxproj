@@ -167,10 +167,10 @@
 			children = (
 				4CF9E77E1F13684000C536AD /* CMRamotionAnimator.h */,
 				4CF9E77F1F13684000C536AD /* CMRamotionAnimator.m */,
-				4CF9E7811F13694B00C536AD /* CMRamotionBounceLayer.h */,
-				4CF9E7821F13694B00C536AD /* CMRamotionBounceLayer.m */,
 				4CF9E7841F136A0000C536AD /* CMRamotionWaveLayer.h */,
 				4CF9E7851F136A0000C536AD /* CMRamotionWaveLayer.m */,
+				4CF9E7811F13694B00C536AD /* CMRamotionBounceLayer.h */,
+				4CF9E7821F13694B00C536AD /* CMRamotionBounceLayer.m */,
 				4CF9E7871F136A2400C536AD /* CMRamotionBallLayer.h */,
 				4CF9E7881F136A2400C536AD /* CMRamotionBallLayer.m */,
 			);

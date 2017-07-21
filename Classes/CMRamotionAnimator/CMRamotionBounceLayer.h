@@ -28,6 +28,8 @@
 
 @interface CMRamotionBounceLayer : CALayer
 
+@property (nonatomic, weak) UIScrollView *scroll;
+
 @property (nonatomic, assign) CGRect scrollViewFrame;
 
 // The background of fluctuation above

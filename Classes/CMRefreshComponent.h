@@ -60,5 +60,6 @@ typedef enum CMRefreshState {
 - (void)stop;
 - (void)sizeChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
 - (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
+- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
 
 @end

@@ -32,6 +32,7 @@
 static NSString * Context = @"CMRefreshContext";
 static NSString * const OffsetKeyPath = @"contentOffset";
 static NSString * const ContentSizeKeyPath = @"contentSize";
+static NSString * const FrameKeyPath = @"frame";
 
 
 @interface CMRefreshComponent ()
@@ -149,7 +150,7 @@ static NSString * const ContentSizeKeyPath = @"contentSize";
                     self.state = CMRefreshStateRefreshing;
                     [self start];
                 }
-            }); 
+            });
         }
     }
 }
@@ -181,6 +182,8 @@ static NSString * const ContentSizeKeyPath = @"contentSize";
 
 - (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {}
 
+- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {}
+
 #pragma mark - Observer Methods
 - (void)removeObserver {
     if (![self.superview isKindOfClass:[UIScrollView class]]) {
@@ -195,6 +198,7 @@ static NSString * const ContentSizeKeyPath = @"contentSize";
     
     [scrollView removeObserver:self forKeyPath:OffsetKeyPath context:&Context];
     [scrollView removeObserver:self forKeyPath:ContentSizeKeyPath context:&Context];
+    [scrollView removeObserver:self forKeyPath:FrameKeyPath context:&Context];
     self.isObservingScrollView = NO;
 }
 
@@ -210,6 +214,7 @@ static NSString * const ContentSizeKeyPath = @"contentSize";
     UIScrollView *scrollView = (UIScrollView *)view;
     [scrollView addObserver:self forKeyPath:OffsetKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
     [scrollView addObserver:self forKeyPath:ContentSizeKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
+    [scrollView addObserver:self forKeyPath:FrameKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
     self.isObservingScrollView = YES;
 }
 
@@ -231,6 +236,8 @@ static NSString * const ContentSizeKeyPath = @"contentSize";
         [self sizeChange:change];
     } else if ([keyPath isEqualToString:OffsetKeyPath]) {
         [self offsetChange:change];
+    } else if ([keyPath isEqualToString:FrameKeyPath]) {
+        [self frameChange:change];
     }
 }
 

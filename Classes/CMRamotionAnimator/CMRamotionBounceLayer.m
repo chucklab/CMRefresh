@@ -105,16 +105,21 @@
     
     [self.wavelayer removeFromSuperlayer];
     [self.ballLayer removeFromSuperlayer];
-    self.wavelayer = [[CMRamotionWaveLayer alloc] initWithFrame: CGRectMake(0, 0, scrollViewFrame.size.width, scrollViewFrame.size.height)
+    self.wavelayer = [[CMRamotionWaveLayer alloc] initWithFrame: scrollViewFrame
                                                         execute: self.execute
                                                  bounceDuration: self.animDuration
                                                           color: self.waveColor];
-    self.ballLayer = [[CMRamotionBallLayer alloc] initWithFrame: CGRectMake(scrollViewFrame.size.width * 0.5 - 20, self.execute + 40, 40, 40)
+    
+    const CGFloat BallW = 40;
+    self.ballLayer = [[CMRamotionBallLayer alloc] initWithFrame: CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW)
                                                        duration: self.animDuration
                                                      moveUpDist: 60 + self.execute * 0.5
                                                           color: self.ballColor];
     [self addSublayer: self.wavelayer];
     [self addSublayer: self.ballLayer];
+    
+    self.wavelayer.scroll = self.scroll;
+    self.ballLayer.scroll = self.scroll;
     
     self.backLayer.frame = CGRectMake(0, 0, scrollViewFrame.size.width, scrollViewFrame.size.height);
 }
@@ -128,6 +133,12 @@
     [self.wavelayer wave: y execute: self.execute];
     CGFloat progress = y / self.execute;
     //DLog(@"backLayer.opacity: %@", @(progress));
+    
+    //SLog(@"wave: %@", @(y));
+    
+    if (!CGRectEqualToRect(self.backLayer.frame, self.scroll.frame)) {
+        self.backLayer.frame = self.scroll.frame;
+    }
     self.backLayer.opacity = progress;
 }
 

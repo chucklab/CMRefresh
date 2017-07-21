@@ -29,6 +29,9 @@ typedef void (^CMCompletion)();
 @class CMCircleLayer;
 
 @interface CMRamotionBallLayer : CALayer
+
+@property (nonatomic, weak) UIScrollView *scroll;
+
 @property (nonatomic, strong) CMCircleLayer *circleLayer;
 
 - (instancetype)initWithFrame:(CGRect) frame duration:(CFTimeInterval) duration moveUpDist:(CGFloat) moveUpDist color:(UIColor *) color;

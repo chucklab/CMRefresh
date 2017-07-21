@@ -145,20 +145,31 @@ static const CGFloat ReferenceHeight = 50;
 
 #pragma mark - Privater Methods
 - (CGPathRef)wavePath:(CGFloat) x y:(CGFloat) y {
-    CGFloat w = self.frame.size.width;
+    //MFuncLog();
+    
+    x = MAX(x, 0);
+    y = MAX(y, 0);
+    
+    //SLog(@"wavePath: %@, %@", @(x), @(y));
+    
+    CGFloat w = self.scroll.frame.size.width;
     UIBezierPath *path = [[UIBezierPath alloc] init];
+    
+    CGFloat yoffset = /*self.scroll.frame.origin.y*/0;
+    CGFloat xoffset = /*self.scroll.frame.origin.x*/0;
+    
     if (y < self.execute) {
-        [path moveToPoint:CGPointZero];
-        [path addLineToPoint:CGPointMake(w, 0)];
-        [path addLineToPoint:CGPointMake(w, y)];
-        [path addLineToPoint:CGPointMake(0, y)];
-        [path addLineToPoint:CGPointZero];
+        [path moveToPoint:CGPointMake(xoffset, yoffset)];
+        [path addLineToPoint:CGPointMake(w + xoffset, yoffset)];
+        [path addLineToPoint:CGPointMake(w + xoffset, y + yoffset)];
+        [path addLineToPoint:CGPointMake(xoffset, y + yoffset)];
+        [path addLineToPoint:CGPointMake(xoffset, yoffset)];
     } else {
-        [path moveToPoint:CGPointZero];
-        [path addLineToPoint:CGPointMake(w, 0)];
-        [path addLineToPoint:CGPointMake(w, self.execute)];
-        [path addQuadCurveToPoint:CGPointMake(0, self.execute) controlPoint:CGPointMake(w * 0.5, y)];
-        [path addLineToPoint:CGPointZero];
+        [path moveToPoint:CGPointMake(xoffset, yoffset)];
+        [path addLineToPoint:CGPointMake(w + xoffset, yoffset)];
+        [path addLineToPoint:CGPointMake(w + xoffset, self.execute + yoffset)];
+        [path addQuadCurveToPoint:CGPointMake(xoffset, self.execute + yoffset) controlPoint:CGPointMake(w * 0.5 + xoffset, y + yoffset)];
+        [path addLineToPoint:CGPointMake(xoffset, yoffset)];
     }
     return path.CGPath;
 }

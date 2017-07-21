@@ -166,6 +166,12 @@
     }
 }
 
+- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+    MFuncLog();
+    //CGRect rect = [change[NSKeyValueChangeNewKey] CGRectValue];
+    //SLog(@"frameChange: %@", NSStringFromCGRect(rect));
+}
+
 #pragma mark - Helpers
 - (void)beginStop {
     UIScrollView *scrollView = self.scrollView;

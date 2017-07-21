@@ -25,6 +25,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CMRamotionWaveLayer : CALayer <CAAnimationDelegate>
+
+@property (nonatomic, weak) UIScrollView *scroll;
+
 // Reference view
 @property (nonatomic, strong) UIView *reference;
 

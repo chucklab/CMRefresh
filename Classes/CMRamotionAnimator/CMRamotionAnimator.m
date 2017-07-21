@@ -93,6 +93,7 @@
     if (superview) {
         [superview.layer addSublayer: self.bounceLayer];
     }
+    self.bounceLayer.scroll = scroll;
 }
 
 
@@ -141,6 +142,10 @@
         default: {
         } break;
     }
+}
+
+- (void)refresh:(CMRefreshComponent *)view scrollFrameChange:(CGRect) changeFrame {
+    SLog(@"scrollFrameChange: %@", NSStringFromCGRect(changeFrame));
 }
 
 #pragma mark - Getters & Setters
