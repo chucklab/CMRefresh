@@ -25,9 +25,9 @@
 #import "CMNormalFooterAnimator.h"
 #import "CMCommon.h"
 
-static NSString * const LoadingMoreDescription = @"Loading more";
-static NSString * const NoMoreDataDescription = @"No more data";
-static NSString * const LoadingDescription = @"Loading...";
+static NSString * const DefaultLoadingMoreDescription = @"Loading more";
+static NSString * const DefaultNoMoreDataDescription = @"No more data";
+static NSString * const DefaultLoadingDescription = @"Loading...";
 
 @interface CMNormalFooterAnimator ()
 
@@ -53,6 +53,16 @@ static NSString * const LoadingDescription = @"Loading...";
     self.execute = 50;
     self.duration = 0.3;
     
+    if (!CMIsNotEmptyString(self.loadingMoreDescription)) {
+        self.loadingMoreDescription = DefaultLoadingMoreDescription;
+    }
+    if (!CMIsNotEmptyString(self.noMoreDataDescription)) {
+        self.noMoreDataDescription = DefaultNoMoreDataDescription;
+    }
+    if (!CMIsNotEmptyString(self.loadingDescription)) {
+        self.loadingDescription = DefaultLoadingDescription;
+    }
+    
     // UI Setups
     [self setupTitleLabel];
     [self setupIndicatorView];
@@ -73,7 +83,7 @@ static NSString * const LoadingDescription = @"Loading...";
     titleLabel.font = CMFont_Default(14);
     titleLabel.textColor = CMColor(0xa0a0a0);
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = LoadingMoreDescription;
+    titleLabel.text = self.loadingMoreDescription;
     
     [self makeTitleLabelCenter];
 }
@@ -109,19 +119,19 @@ static NSString * const LoadingDescription = @"Loading...";
     ULog(@"stateDidChange --> %@", @(state));
     switch (state) {
         case CMRefreshStateIdle: {
-            self.titleLabel.text = LoadingMoreDescription;
+            self.titleLabel.text = self.loadingMoreDescription;
         } break;
         case CMRefreshStatePulling: {
-            self.titleLabel.text = LoadingMoreDescription;
+            self.titleLabel.text = self.loadingMoreDescription;
         } break;
         case CMRefreshStateRefreshing: {
-            self.titleLabel.text = LoadingDescription;
+            self.titleLabel.text = self.loadingDescription;
         } break;
         case CMRefreshStateWillRefresh: {
             self.titleLabel.text = nil;
         } break;
         case CMRefreshStateNoMoreData: {
-            self.titleLabel.text = NoMoreDataDescription;
+            self.titleLabel.text = self.noMoreDataDescription;
         } break;
         default: {
             self.titleLabel.text = nil;
