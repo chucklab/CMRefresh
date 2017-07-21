@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C2D25261F20AF710062F588 /* CMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C2D25241F20AF710062F588 /* CMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C75FE831F20AFB3009EE0FA /* CMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C75FE681F20AFB2009EE0FA /* CMCommon.h */; };
 		4C75FE841F20AFB3009EE0FA /* CMCommonExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C75FE691F20AFB2009EE0FA /* CMCommonExtension.h */; };
 		4C75FE851F20AFB3009EE0FA /* CMCommonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C75FE6A1F20AFB2009EE0FA /* CMCommonExtension.m */; };
@@ -37,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		4C2D25211F20AF710062F588 /* CMRefresh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CMRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C2D25241F20AF710062F588 /* CMRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMRefresh.h; sourceTree = "<group>"; };
 		4C2D25251F20AF710062F588 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C75FE681F20AFB2009EE0FA /* CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCommon.h; sourceTree = "<group>"; };
 		4C75FE691F20AFB2009EE0FA /* CMCommonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCommonExtension.h; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 		4C2D25231F20AF710062F588 /* CMRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				4C2D25241F20AF710062F588 /* CMRefresh.h */,
 				4C2D25251F20AF710062F588 /* Info.plist */,
 			);
 			path = CMRefresh;
@@ -163,7 +160,6 @@
 				4C75FE951F20AFB3009EE0FA /* CMRefreshFooterView.h in Headers */,
 				4C75FE8A1F20AFB3009EE0FA /* CMRamotionBallLayer.h in Headers */,
 				4C75FE991F20AFB3009EE0FA /* CMRefreshProtocol.h in Headers */,
-				4C2D25261F20AF710062F588 /* CMRefresh.h in Headers */,
 				4C75FE861F20AFB3009EE0FA /* CMNormalFooterAnimator.h in Headers */,
 				4C75FE881F20AFB3009EE0FA /* CMRamotionAnimator.h in Headers */,
 				4C75FE8E1F20AFB3009EE0FA /* CMRamotionWaveLayer.h in Headers */,
