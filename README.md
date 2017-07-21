@@ -1,10 +1,20 @@
 # CMRefresh
+
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/chucklab/CMRefresh/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Pod Version](https://img.shields.io/cocoapods/v/CMRefresh.svg?style=flat)](https://cocoapods.org/pods/CMRefresh)
+[![Pod Platform](https://img.shields.io/cocoapods/p/CMRefresh.svg?style=flat)](https://cocoapods.org/pods/CMRefresh)
+[![Support](https://img.shields.io/badge/support-iOS%206%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)
+[![Build Status](https://img.shields.io/travis/chucklab/CMRefresh/master.svg?style=flat)](https://travis-ci.org/chucklab/CMRefresh)
+[![Coverage Status](https://codecov.io/github/chucklab/CMRefresh/coverage.svg?branch=master)](https://codecov.io/github/chucklab/CMRefresh?branch=master)
+[![Reference Status](https://www.versioneye.com/objective-c/CMRefresh/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/CMRefresh/references)
+
 Some util refresh categories for UIScrollView and it's subclasses, which write in Objective-C, wish you love it, enjoy the code:D
 
 ## Installation
 ### Cocoapods:
 
-1. Add `pod 'CMRefresh', '~> 0.0.1'` to your Podfile.
+1. Add `pod 'CMRefresh', '~> 0.0.4'` to your Podfile.
 2. Run `pod install` or `pod update`.
 3. Import \<CMRefresh.h\>.
 
