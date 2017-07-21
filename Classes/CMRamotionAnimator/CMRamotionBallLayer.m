@@ -110,6 +110,7 @@ static CFTimeInterval UpDuration = 0.5;
     self.strokeColor = self.fillColor;
     self.lineWidth = 0;
     self.strokeEnd = 1;
+    self.hidden = YES;
 #endif
     
     return self;
@@ -133,6 +134,7 @@ static CFTimeInterval UpDuration = 0.5;
 
 - (void)startAnimation {
 #if 1
+    self.hidden = NO;
     [self moveUp: self.moveUpDist];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(UpDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -16,8 +16,8 @@
         return nil;
     }
     
-    self.backgroundColor = [UIColor whiteColor];
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor yellowColor];
+    self.contentView.backgroundColor = [UIColor yellowColor];
     
     return self;
 }
