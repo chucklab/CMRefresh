@@ -103,25 +103,28 @@
     
     MLog(@"Initial Frame: %@", NSStringFromCGRect(scrollViewFrame));
     
-    [self.wavelayer removeFromSuperlayer];
-    [self.ballLayer removeFromSuperlayer];
-    self.wavelayer = [[CMRamotionWaveLayer alloc] initWithFrame: scrollViewFrame
-                                                        execute: self.execute
-                                                 bounceDuration: self.animDuration
-                                                          color: self.waveColor];
+    if (self.wavelayer == nil) {
+        self.wavelayer = [[CMRamotionWaveLayer alloc] initWithFrame: scrollViewFrame
+                                                            execute: self.execute
+                                                     bounceDuration: self.animDuration
+                                                              color: self.waveColor];
+        [self addSublayer: self.wavelayer];
+        self.wavelayer.scroll = self.scroll;
+    }
+    self.wavelayer.frame = scrollViewFrame;
     
     const CGFloat BallW = 40;
-    self.ballLayer = [[CMRamotionBallLayer alloc] initWithFrame: CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW)
-                                                       duration: self.animDuration
-                                                     moveUpDist: 60 + self.execute * 0.5
-                                                          color: self.ballColor];
-    [self addSublayer: self.wavelayer];
-    [self addSublayer: self.ballLayer];
+    if (self.ballLayer == nil) {
+        self.ballLayer = [[CMRamotionBallLayer alloc] initWithFrame: CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW)
+                                                           duration: self.animDuration
+                                                         moveUpDist: 60 + self.execute * 0.5
+                                                              color: self.ballColor];
+        [self addSublayer: self.ballLayer];
+        self.ballLayer.scroll = self.scroll;
+    }
+    self.ballLayer.frame = CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW);
     
-    self.wavelayer.scroll = self.scroll;
-    self.ballLayer.scroll = self.scroll;
-    
-    self.backLayer.frame = CGRectMake(0, 0, scrollViewFrame.size.width, scrollViewFrame.size.height);
+    self.backLayer.frame = scrollViewFrame;
 }
 
 #pragma mark - Public Methods
@@ -136,9 +139,6 @@
     
     //SLog(@"wave: %@", @(y));
     
-    if (!CGRectEqualToRect(self.backLayer.frame, self.scroll.frame)) {
-        self.backLayer.frame = self.scroll.frame;
-    }
     self.backLayer.opacity = progress;
 }
 
@@ -155,6 +155,8 @@
         __weak typeof(self) weakSelf = self;
         [self.ballLayer endAnimation: YES
                           complition: ^{
+                              // All animation did stop
+                              //SLog(@"animationDidStop");
                               [weakSelf removeDisPlay];
                               [weakSelf wave: 0];
                           }];

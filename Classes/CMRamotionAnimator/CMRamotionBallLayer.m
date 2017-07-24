@@ -43,11 +43,9 @@ static CFTimeInterval UpDuration = 0.5;
     
     UpDuration = duration;
     self.frame = frame;
-    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
-    self.circleLayer = [[CMCircleLayer alloc] initWithSize: circleWidth
-                                                moveUpDist: moveUpDist
-                                                     frame: frame
-                                                     color: color];
+    self.circleLayer = [[CMCircleLayer alloc] initWithMoveUpDist: moveUpDist
+                                                           frame: CGRectMake(0, 0, frame.size.width, frame.size.height)
+                                                           color: color];
     [self addSublayer: self.circleLayer];
     
     return self;
@@ -56,6 +54,13 @@ static CFTimeInterval UpDuration = 0.5;
 - (void)dealloc {
     MLog(@"[CMRamotionBallLayer] --> dealloc");
     [self endAnimation: NO complition: nil];
+}
+
+#pragma mark - Getters & Setters
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+
+    self.circleLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 }
 
 - (void)startAnimation {
@@ -77,7 +82,7 @@ static CFTimeInterval UpDuration = 0.5;
 
 @implementation CMCircleLayer
 
-- (instancetype)initWithSize:(CGFloat) size moveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color {
+- (instancetype)initWithMoveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -86,25 +91,24 @@ static CFTimeInterval UpDuration = 0.5;
     MLog(@"[CMCircleLayer] --> initWithSize: %@", @(size));
     
 #if 1
+    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     self.moveUpDist = moveUpDist;
-    CGRect selfFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    self.spiner = [[CMSpinerLayer alloc] initWithSuperLayerFrame:selfFrame
-                                                        ballSize:size
-                                                           color:color];
+    self.spiner = [[CMSpinerLayer alloc] initWithFrame: /*CGRectMake(0, 0, frame.size.height, frame.size.height)*/frame
+                                                 color: color];
     
     [self addSublayer:self.spiner];
     
-    CGFloat radius = size * 0.5;
-    self.frame = selfFrame;
+    CGFloat radius = circleWidth * 0.5;
+    self.frame = frame;
     CGPoint center = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
     CGFloat startAngle = 0 - M_PI_2;
     CGFloat endAngle = M_PI * 2 - M_PI_2;
     BOOL clockwise = YES;
-    self.path = [UIBezierPath bezierPathWithArcCenter:center
-                                               radius:radius
-                                           startAngle:startAngle
-                                             endAngle:endAngle
-                                            clockwise:clockwise].CGPath;
+    self.path = [UIBezierPath bezierPathWithArcCenter: center
+                                               radius: radius
+                                           startAngle: startAngle
+                                             endAngle: endAngle
+                                            clockwise: clockwise].CGPath;
 
     self.fillColor = [color colorWithAlphaComponent:1].CGColor;
     self.strokeColor = self.fillColor;
@@ -130,6 +134,25 @@ static CFTimeInterval UpDuration = 0.5;
 - (void)dealloc {
     MLog(@"[CMCircleLayer] --> (%@) --> dealloc", self);
     [self endAnimation: NO complition: nil];
+}
+
+#pragma mark - Getters & Setters
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+    
+    self.spiner.frame = frame;
+    
+    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
+    CGFloat radius = circleWidth * 0.5;
+    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
+    CGFloat startAngle = 0 - M_PI_2;
+    CGFloat endAngle = M_PI * 2 - M_PI_2;
+    BOOL clockwise = YES;
+    self.path = [UIBezierPath bezierPathWithArcCenter:center
+                                               radius:radius
+                                           startAngle:startAngle
+                                             endAngle:endAngle
+                                            clockwise:clockwise].CGPath;
 }
 
 - (void)startAnimation {
@@ -214,25 +237,26 @@ static CFTimeInterval UpDuration = 0.5;
 
 @implementation CMSpinerLayer
 
-- (instancetype)initWithSuperLayerFrame:(CGRect) superLayerFrame ballSize:(CGFloat) ballSize color:(UIColor *) color {
+- (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color {
     self = [super init];
     if (self == nil) {
         return nil;
     }
     
-    MLog(@"[CMSpinerLayer] --> initWithSuperLayerFrame: %@", NSStringFromCGRect(superLayerFrame));
+    MLog(@"[CMSpinerLayer] --> initWithFrame: %@", NSStringFromCGRect(frame));
     
-    CGFloat radius = (ballSize * 0.5) * 1.2;
-    self.frame = CGRectMake(0, 0, superLayerFrame.size.height, superLayerFrame.size.height);
-    CGPoint center = CGPointMake(superLayerFrame.size.width * 0.5, superLayerFrame.origin.y + superLayerFrame.size.height * 0.5);
+    self.frame = frame;
+    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
+    CGFloat radius = (circleWidth * 0.5) * 1.2;
+    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.origin.y + frame.size.height * 0.5);
     CGFloat startAngle = 0 - M_PI_2;
     CGFloat endAngle = M_PI * 2 - M_PI_2 + M_PI * 0.125;
     BOOL clockwise = YES;
-    self.path = [UIBezierPath bezierPathWithArcCenter:center
-                                               radius:radius
-                                           startAngle:startAngle
-                                             endAngle:endAngle
-                                            clockwise:clockwise].CGPath;
+    self.path = [UIBezierPath bezierPathWithArcCenter: center
+                                               radius: radius
+                                           startAngle: startAngle
+                                             endAngle: endAngle
+                                            clockwise: clockwise].CGPath;
     
     self.fillColor = nil;
     self.strokeColor = color.CGColor;
@@ -249,6 +273,23 @@ static CFTimeInterval UpDuration = 0.5;
 - (void)dealloc {
     MLog(@"[CMSpinerLayer] --> dealloc");
     [self stopAnimation];
+}
+
+#pragma mark - Getters & Setters
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+    
+    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
+    CGFloat radius = (circleWidth * 0.5) * 1.2;
+    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.origin.y + frame.size.height * 0.5);
+    CGFloat startAngle = 0 - M_PI_2;
+    CGFloat endAngle = M_PI * 2 - M_PI_2 + M_PI * 0.125;
+    BOOL clockwise = YES;
+    self.path = [UIBezierPath bezierPathWithArcCenter: center
+                                               radius: radius
+                                           startAngle: startAngle
+                                             endAngle: endAngle
+                                            clockwise: clockwise].CGPath;
 }
 
 - (void)animation {

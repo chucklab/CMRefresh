@@ -124,7 +124,6 @@
 
 - (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state {
 //    DLog(@"stateDidChange: (view.scrollView.frame)%@", NSStringFromCGRect(view.scrollView.frame));
-    self.bounceLayer.scrollViewFrame = view.scrollView.frame;
     switch (state) {
         case CMRefreshStateIdle: {
             view.scrollView.userInteractionEnabled = YES;
@@ -145,7 +144,18 @@
 }
 
 - (void)refresh:(CMRefreshComponent *)view scrollFrameChange:(CGRect) changeFrame {
-    SLog(@"scrollFrameChange: %@", NSStringFromCGRect(changeFrame));
+    
+    if (CGRectEqualToRect(CGRectZero, changeFrame)) {
+        return;
+    }
+    
+    if (CGRectEqualToRect(self.bounceLayer.scrollViewFrame, changeFrame)) {
+        return;
+    }
+    
+    //SLog(@"scrollFrameChange: %@", NSStringFromCGRect(changeFrame));
+    
+    self.bounceLayer.scrollViewFrame = changeFrame;
 }
 
 #pragma mark - Getters & Setters

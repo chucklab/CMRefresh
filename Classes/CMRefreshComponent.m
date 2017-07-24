@@ -27,12 +27,23 @@
 #import "CMCommon.h"
 
 /****************
- * For Observer
+ *  For Observer
  ***************/
 static NSString * Context = @"CMRefreshContext";
 static NSString * const OffsetKeyPath = @"contentOffset";
 static NSString * const ContentSizeKeyPath = @"contentSize";
+
+/**********************
+ *  For Observer Frame
+ *********************/
 static NSString * const FrameKeyPath = @"frame";
+static NSString * const KeyPath_LayerBounds = @"layer.bounds";
+static NSString * const KeyPath_LayerTransform = @"layer.transform";
+static NSString * const KeyPath_LayerPosition = @"layer.position";
+static NSString * const KeyPath_LayerZPosition = @"layer.zPosition";
+static NSString * const KeyPath_LayerAnchorPoint = @"layer.anchorPoint";
+static NSString * const KeyPath_LayerAnchorPointZ = @"layer.anchorPointZ";
+static NSString * const KeyPath_LayerFrame = @"layer.frame";
 
 
 @interface CMRefreshComponent ()
@@ -63,6 +74,10 @@ static NSString * const FrameKeyPath = @"frame";
     self.animator = animator;
     
     return self;
+}
+
+- (void)dealloc {
+    [self removeObserver];
 }
 
 #pragma mark - Setters & Getters
@@ -196,9 +211,18 @@ static NSString * const FrameKeyPath = @"frame";
     
     UIScrollView *scrollView = (UIScrollView *)self.superview;
     
-    [scrollView removeObserver:self forKeyPath:OffsetKeyPath context:&Context];
-    [scrollView removeObserver:self forKeyPath:ContentSizeKeyPath context:&Context];
-    [scrollView removeObserver:self forKeyPath:FrameKeyPath context:&Context];
+    [scrollView removeObserver: self forKeyPath: OffsetKeyPath context: &Context];
+    [scrollView removeObserver: self forKeyPath: ContentSizeKeyPath context: &Context];
+    
+    [scrollView removeObserver: self forKeyPath: FrameKeyPath context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerBounds context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerTransform context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerPosition context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerZPosition context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerAnchorPoint context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerAnchorPointZ context: &Context];
+    [scrollView removeObserver: self forKeyPath: KeyPath_LayerFrame context: &Context];
+    
     self.isObservingScrollView = NO;
 }
 
@@ -212,9 +236,19 @@ static NSString * const FrameKeyPath = @"frame";
     }
     
     UIScrollView *scrollView = (UIScrollView *)view;
-    [scrollView addObserver:self forKeyPath:OffsetKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
-    [scrollView addObserver:self forKeyPath:ContentSizeKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
-    [scrollView addObserver:self forKeyPath:FrameKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&Context];
+    
+    [scrollView addObserver: self forKeyPath: OffsetKeyPath options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: ContentSizeKeyPath options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    
+    [scrollView addObserver: self forKeyPath: FrameKeyPath options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerBounds options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerTransform options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerPosition options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerZPosition options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerAnchorPoint options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerAnchorPointZ options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    [scrollView addObserver: self forKeyPath: KeyPath_LayerFrame options: NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context: &Context];
+    
     self.isObservingScrollView = YES;
 }
 
@@ -236,7 +270,16 @@ static NSString * const FrameKeyPath = @"frame";
         [self sizeChange:change];
     } else if ([keyPath isEqualToString:OffsetKeyPath]) {
         [self offsetChange:change];
-    } else if ([keyPath isEqualToString:FrameKeyPath]) {
+    } else if (
+               [keyPath isEqualToString: FrameKeyPath] ||
+               [keyPath isEqualToString: KeyPath_LayerBounds] ||
+               [keyPath isEqualToString: KeyPath_LayerTransform] ||
+               [keyPath isEqualToString: KeyPath_LayerPosition] ||
+               [keyPath isEqualToString: KeyPath_LayerZPosition] ||
+               [keyPath isEqualToString: KeyPath_LayerAnchorPoint] ||
+               [keyPath isEqualToString: KeyPath_LayerAnchorPointZ] ||
+               [keyPath isEqualToString: KeyPath_LayerFrame]
+               ) {
         [self frameChange:change];
     }
 }

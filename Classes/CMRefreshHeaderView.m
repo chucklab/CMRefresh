@@ -167,9 +167,11 @@
 }
 
 - (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
-    MFuncLog();
+    //MFuncLog();
     //CGRect rect = [change[NSKeyValueChangeNewKey] CGRectValue];
     //SLog(@"frameChange: %@", NSStringFromCGRect(rect));
+    
+    [self.animator refresh: self scrollFrameChange: self.scrollView.frame];
 }
 
 #pragma mark - Helpers

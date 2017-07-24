@@ -42,13 +42,13 @@ typedef void (^CMCompletion)();
 
 @interface CMCircleLayer : CAShapeLayer <CAAnimationDelegate>
 @property (nonatomic, assign) CGFloat moveUpDist;
-- (instancetype)initWithSize:(CGFloat) size moveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color;
+- (instancetype)initWithMoveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color;
 - (void)startAnimation;
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 @end
 
 @interface CMSpinerLayer : CAShapeLayer <CAAnimationDelegate>
-- (instancetype)initWithSuperLayerFrame:(CGRect) superLayerFrame ballSize:(CGFloat) ballSize color:(UIColor *) color;
+- (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color;
 - (void)animation;
 - (void)stopAnimation;
 @end

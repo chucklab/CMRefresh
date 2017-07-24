@@ -70,6 +70,7 @@ static const CGFloat ReferenceHeight = 50;
     self.execute = execute;
     
     self.frame = frame;
+    self.masksToBounds = YES;
     self.backgroundColor = [UIColor clearColor].CGColor;
     [self initWave];
     [self initReferenceLayer];
@@ -83,6 +84,20 @@ static const CGFloat ReferenceHeight = 50;
         [self.displayLink invalidate];
         self.displayLink = nil;
     }
+}
+
+#pragma mark - Getters & Setters
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+    
+    /**************************
+     *  Update reference.frame
+     *************************/
+    CGFloat w = self.frame.size.width;
+    self.reference.frame = CGRectMake( w * 0.5 - ReferenceWitdh * 0.5,
+                                      -ReferenceHeight * 0.5,
+                                      ReferenceWitdh,
+                                      ReferenceHeight);
 }
 
 - (void)initWave {
@@ -102,21 +117,12 @@ static const CGFloat ReferenceHeight = 50;
                                       ReferenceHeight);
     self.reference.backgroundColor = [UIColor clearColor];
     [self.waveLayer addSublayer: self.reference.layer];
-    
-    CGAffineTransform trans = CGAffineTransformIdentity;
-    trans = CGAffineTransformTranslate(trans, 0, self.execute);
-    self.reference.transform = trans;
 }
 
 #pragma mark - Public Methods
 - (void)wave:(CGFloat) y execute:(CGFloat) execute {
     self.execute = execute;
     self.waveLayer.path = [self wavePath: 0 y: y];
-    if (!self.isAnimation) {
-        CGAffineTransform trans = CGAffineTransformIdentity;
-        trans = CGAffineTransformTranslate(trans, 0, y);
-        self.reference.transform = trans;
-    }
 }
 
 - (void)startAnimation {
@@ -152,7 +158,7 @@ static const CGFloat ReferenceHeight = 50;
     
     //SLog(@"wavePath: %@, %@", @(x), @(y));
     
-    CGFloat w = self.scroll.frame.size.width;
+    CGFloat w = self.frame.size.width;
     UIBezierPath *path = [[UIBezierPath alloc] init];
     
     CGFloat yoffset = /*self.scroll.frame.origin.y*/0;
@@ -192,6 +198,8 @@ static const CGFloat ReferenceHeight = 50;
     if (CGRectEqualToRect(frame, CGRectZero)) {
         return;
     }
+    
+    //SLog(@"displayAction: frame(%@), execute(%@)", NSStringFromCGRect(frame), @(self.execute));
     
     CGPathRef path = [self displayWavePath:0 y:frame.origin.y + ReferenceHeight * 0.5];
     self.waveLayer.path = path;
