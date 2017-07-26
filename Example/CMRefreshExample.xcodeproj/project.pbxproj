@@ -52,7 +52,7 @@
 		4CF780291F14A93000C346D4 /* UIScrollView+CMRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIScrollView+CMRefresh.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CF7802B1F14AF4A00C346D4 /* CMRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshHeaderView.h; sourceTree = "<group>"; };
 		4CF7802C1F14AF4A00C346D4 /* CMRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMRefreshHeaderView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4CF9E7711F131E6100C536AD /* CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMCommon.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4CF9E7711F131E6100C536AD /* CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMCommon.h; sourceTree = "<group>"; };
 		4CF9E7741F13212200C536AD /* CMRefreshProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshProtocol.h; sourceTree = "<group>"; };
 		4CF9E7771F1341D100C536AD /* CMRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshComponent.h; sourceTree = "<group>"; };
 		4CF9E7781F1341D100C536AD /* CMRefreshComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRefreshComponent.m; sourceTree = "<group>"; };
