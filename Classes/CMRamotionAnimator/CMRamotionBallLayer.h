@@ -22,7 +22,7 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
 typedef void (^CMCompletion)();
 
@@ -40,14 +40,14 @@ typedef void (^CMCompletion)();
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 @end
 
-@interface CMCircleLayer : CAShapeLayer <CAAnimationDelegate>
+@interface CMCircleLayer : CAShapeLayer
 @property (nonatomic, assign) CGFloat moveUpDist;
 - (instancetype)initWithMoveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color;
 - (void)startAnimation;
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 @end
 
-@interface CMSpinerLayer : CAShapeLayer <CAAnimationDelegate>
+@interface CMSpinerLayer : CAShapeLayer
 - (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color;
 - (void)animation;
 - (void)stopAnimation;

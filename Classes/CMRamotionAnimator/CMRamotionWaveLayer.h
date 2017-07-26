@@ -22,9 +22,9 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
-@interface CMRamotionWaveLayer : CALayer <CAAnimationDelegate>
+@interface CMRamotionWaveLayer : CALayer
 
 @property (nonatomic, weak) UIScrollView *scroll;
 

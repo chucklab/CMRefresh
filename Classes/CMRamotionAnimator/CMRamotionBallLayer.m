@@ -22,8 +22,6 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "CMRamotionBallLayer.h"
 #import "CMCommon.h"
 
@@ -73,7 +71,7 @@ static CFTimeInterval UpDuration = 0.5;
 
 @end
 
-@interface CMCircleLayer ()
+@interface CMCircleLayer () <CAAnimationDelegate>
 
 @property (nonatomic, strong) CMSpinerLayer *spiner;
 @property (nonatomic, copy) CMCompletion didEndAnimation;
@@ -232,7 +230,7 @@ static CFTimeInterval UpDuration = 0.5;
 
 @end
 
-@interface CMSpinerLayer ()
+@interface CMSpinerLayer () <CAAnimationDelegate>
 @end
 
 @implementation CMSpinerLayer

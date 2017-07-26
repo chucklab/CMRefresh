@@ -22,7 +22,7 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
 @class CMRamotionWaveLayer, CMRamotionBallLayer;
 

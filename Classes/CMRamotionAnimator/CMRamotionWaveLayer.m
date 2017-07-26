@@ -22,15 +22,13 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "CMCommon.h"
 #import "CMRamotionWaveLayer.h"
 
 static const CGFloat ReferenceWitdh = 150;
 static const CGFloat ReferenceHeight = 50;
 
-@interface CMRamotionWaveLayer ()
+@interface CMRamotionWaveLayer () <CAAnimationDelegate>
 
 // Top wavelayer
 @property (nonatomic, strong) CAShapeLayer *waveLayer;

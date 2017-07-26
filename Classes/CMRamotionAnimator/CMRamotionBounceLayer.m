@@ -22,8 +22,6 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "CMRamotionBounceLayer.h"
 #import "CMRamotionWaveLayer.h"
 #import "CMRamotionBallLayer.h"
