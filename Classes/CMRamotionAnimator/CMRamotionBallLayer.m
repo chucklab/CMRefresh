@@ -27,6 +27,13 @@
 
 static CFTimeInterval UpDuration = 0.5;
 
+
+/*************
+ *  For Spiner
+ *************/
+static const CGFloat SpinerSegmentLength = 0.005;
+
+
 @interface CMRamotionBallLayer ()
 
 @end
@@ -88,7 +95,6 @@ static CFTimeInterval UpDuration = 0.5;
     
     MLog(@"[CMCircleLayer] --> initWithSize: %@", @(size));
     
-#if 1
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     self.moveUpDist = moveUpDist;
     self.spiner = [[CMSpinerLayer alloc] initWithFrame: /*CGRectMake(0, 0, frame.size.height, frame.size.height)*/frame
@@ -113,7 +119,6 @@ static CFTimeInterval UpDuration = 0.5;
     self.lineWidth = 0;
     self.strokeEnd = 1;
     self.hidden = YES;
-#endif
     
     return self;
 }
@@ -154,20 +159,18 @@ static CFTimeInterval UpDuration = 0.5;
 }
 
 - (void)startAnimation {
-#if 1
     self.hidden = NO;
     [self moveUp: self.moveUpDist];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(UpDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         if (self.spiner) {
             [self.spiner animation];
         }
     });
-#endif
 }
 
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition {
-#if 1
     if (self.spiner) {
         [self.spiner stopAnimation];
     }
@@ -180,12 +183,9 @@ static CFTimeInterval UpDuration = 0.5;
             complition();
         }
     }
-    
-#endif
 }
 
 - (void)moveUp:(CGFloat) distance {
-#if 1
     CABasicAnimation *move = [CABasicAnimation animationWithKeyPath:@"position"];
     
     move.fromValue = [NSValue valueWithCGPoint:self.position];
@@ -197,11 +197,9 @@ static CFTimeInterval UpDuration = 0.5;
     move.fillMode = kCAFillModeForwards;
     move.removedOnCompletion = NO;
     [self addAnimation: move forKey: move.keyPath];
-#endif
 }
 
 - (void)moveDown:(CGFloat) distance {
-#if 1
     CABasicAnimation *move = [CABasicAnimation animationWithKeyPath:@"position"];
     
     move.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.position.x, self.position.y - distance)];
@@ -214,18 +212,15 @@ static CFTimeInterval UpDuration = 0.5;
     move.removedOnCompletion = NO;
     move.delegate = self;
     [self addAnimation: move forKey: move.keyPath];
-#endif
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-#if 1
     //ULog(@"[CMCircleLayer] --> animationDidStop");
     if (flag) {
         if (self.didEndAnimation) {
             self.didEndAnimation();
         }
     }
-#endif
 }
 
 @end
@@ -280,8 +275,9 @@ static CFTimeInterval UpDuration = 0.5;
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     CGFloat radius = (circleWidth * 0.5) * 1.2;
     CGPoint center = CGPointMake(frame.size.width * 0.5, frame.origin.y + frame.size.height * 0.5);
-    CGFloat startAngle = 0 - M_PI_2;
-    CGFloat endAngle = M_PI * 2 - M_PI_2 + M_PI * 0.125;
+    const CGFloat angleOffset = -M_PI_2;
+    const CGFloat startAngle = 0.0 + angleOffset;
+    const CGFloat endAngle = M_PI * 4 + angleOffset;
     BOOL clockwise = YES;
     self.path = [UIBezierPath bezierPathWithArcCenter: center
                                                radius: radius
@@ -292,55 +288,99 @@ static CFTimeInterval UpDuration = 0.5;
 
 - (void)animation {
     self.hidden = NO;
+    
+    
+    /***************
+     *  Rotate
+     **************/
     CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotate.fromValue = @0;
     rotate.toValue = @(M_PI * 2);
-    rotate.duration = 1;
+    rotate.duration = 6;
     rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     rotate.repeatCount = HUGE;
     rotate.fillMode = kCAFillModeForwards;
     rotate.removedOnCompletion = NO;
     [self addAnimation:rotate forKey:rotate.keyPath];
     
-    [self strokeEndAnimation];
+    /*******************
+     *  First animation
+     ******************/
+    CABasicAnimation *firstAnimation = [self strokeEndAnimationFrom: 0.00 to: SpinerSegmentLength];
+    firstAnimation.removedOnCompletion = NO;
+    firstAnimation.duration = 0.1;
+    firstAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    firstAnimation.delegate = self;
+    [self addAnimation: firstAnimation forKey: @"firstAnimation"];
 }
 
-- (void)strokeEndAnimation {
-    CABasicAnimation *endPoint = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    endPoint.fromValue = @0;
-    endPoint.toValue = @1;
-    endPoint.duration = 1.8;
-    endPoint.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    endPoint.repeatCount = HUGE;
-    endPoint.fillMode = kCAFillModeForwards;
-    endPoint.removedOnCompletion = NO;
-    endPoint.delegate = self;
-    [self addAnimation:endPoint forKey:endPoint.keyPath];
+- (void)groupAnimation {
+    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+    animGroup.removedOnCompletion = YES;
+    animGroup.repeatCount = HUGE;
+    animGroup.fillMode = kCAFillModeForwards;
+    
+    CABasicAnimation *strokeEndAnimation1 = [self strokeEndAnimationFrom: SpinerSegmentLength to: 0.5 + SpinerSegmentLength];
+    CABasicAnimation *strokeStartAnimation1 = [self strokeStartAnimationFrom: 0.0 to: 0.5];
+    
+    const CGFloat DurationOffset = 0.5;
+    strokeStartAnimation1.beginTime = strokeEndAnimation1.duration + strokeEndAnimation1.beginTime - DurationOffset;
+    animGroup.duration = strokeEndAnimation1.duration + strokeStartAnimation1.duration - DurationOffset * 1;
+    
+    animGroup.animations = @[strokeEndAnimation1, strokeStartAnimation1];
+    [self addAnimation:animGroup forKey:@"groupAnimation"];
 }
 
-- (void)strokeStartAnimation {
-    CABasicAnimation *startPoint = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
-    startPoint.fromValue = @0;
-    startPoint.toValue = @1;
-    startPoint.duration = 0.8;
-    startPoint.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    startPoint.repeatCount = HUGE;
-    startPoint.delegate = self;
-    [self addAnimation:startPoint forKey:startPoint.keyPath];
- 
+- (CABasicAnimation *)strokeEndAnimationFrom:(CGFloat) from to:(CGFloat) to {
+    CABasicAnimation *endPoint1 = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    endPoint1.beginTime = 0;
+    endPoint1.fromValue = @(from);
+    endPoint1.toValue = @(to);
+    endPoint1.duration = 1.5;
+    endPoint1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    endPoint1.repeatCount = 1;
+    endPoint1.fillMode = kCAFillModeForwards;
+    endPoint1.removedOnCompletion = NO;
+    return endPoint1;
+}
+
+- (CABasicAnimation *)strokeStartAnimationFrom:(CGFloat) from to:(CGFloat) to {
+    CABasicAnimation *startPoint1 = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+    startPoint1.beginTime = 0;
+    startPoint1.fromValue = @(from);
+    startPoint1.toValue = @(to);
+    startPoint1.duration = 0.7;
+    startPoint1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    startPoint1.repeatCount = 1;
+    startPoint1.fillMode = kCAFillModeForwards;
+    startPoint1.removedOnCompletion = NO;
+    
+    return startPoint1;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    SLog(@"animationDidStop --> ...");
     if (self.isHidden) {
         return;
     }
     
-    CABasicAnimation *a = (CABasicAnimation *)anim;
-    if ([a.keyPath isEqualToString:@"strokeStart"]) {
-        [self strokeEndAnimation];
-    } else if ([a.keyPath isEqualToString:@"strokeEnd"]) {
-        [self strokeStartAnimation];
-    }
+    /*******************
+     *  Group Animation
+     ******************/
+    [self groupAnimation];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self removeAnimationForKey: @"firstAnimation"];
+    });
+    
+//    CABasicAnimation *a = (CABasicAnimation *)anim;
+//    if ([a.keyPath isEqualToString:@"strokeStart"]) {
+//        SLog(@"animationDidStop --> strokeStart");
+////        [self strokeEndAnimation];
+//    } else if ([a.keyPath isEqualToString:@"strokeEnd"]) {
+//        SLog(@"animationDidStop --> strokeEnd");
+////        [self strokeStartAnimation];
+//    }
 }
 
 - (void)stopAnimation {
