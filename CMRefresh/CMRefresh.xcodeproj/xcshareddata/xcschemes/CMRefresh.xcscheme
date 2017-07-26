@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C7A241C1F28401F001AEBE6"
+               BuildableName = "CMRefreshTests.xctest"
+               BlueprintName = "CMRefreshTests"
+               ReferencedContainer = "container:CMRefresh.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4C2D25201F20AF710062F588"
+            BuildableName = "CMRefresh.framework"
+            BlueprintName = "CMRefresh"
+            ReferencedContainer = "container:CMRefresh.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

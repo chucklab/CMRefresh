@@ -32,7 +32,19 @@
 		4C75FE991F20AFB3009EE0FA /* CMRefreshProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C75FE801F20AFB3009EE0FA /* CMRefreshProtocol.h */; };
 		4C75FE9A1F20AFB3009EE0FA /* UIScrollView+CMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C75FE811F20AFB3009EE0FA /* UIScrollView+CMRefresh.h */; };
 		4C75FE9B1F20AFB3009EE0FA /* UIScrollView+CMRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C75FE821F20AFB3009EE0FA /* UIScrollView+CMRefresh.m */; };
+		4C7A24201F28401F001AEBE6 /* CMRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A241F1F28401F001AEBE6 /* CMRefreshTests.m */; };
+		4C7A24221F28401F001AEBE6 /* CMRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2D25211F20AF710062F588 /* CMRefresh.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C7A24231F28401F001AEBE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C2D25181F20AF710062F588 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C2D25201F20AF710062F588;
+			remoteInfo = CMRefresh;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4C2D25211F20AF710062F588 /* CMRefresh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CMRefresh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +74,9 @@
 		4C75FE801F20AFB3009EE0FA /* CMRefreshProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshProtocol.h; sourceTree = "<group>"; };
 		4C75FE811F20AFB3009EE0FA /* UIScrollView+CMRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+CMRefresh.h"; sourceTree = "<group>"; };
 		4C75FE821F20AFB3009EE0FA /* UIScrollView+CMRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+CMRefresh.m"; sourceTree = "<group>"; };
+		4C7A241D1F28401F001AEBE6 /* CMRefreshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMRefreshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C7A241F1F28401F001AEBE6 /* CMRefreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMRefreshTests.m; sourceTree = "<group>"; };
+		4C7A24211F28401F001AEBE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +84,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C7A241A1F28401F001AEBE6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C7A24221F28401F001AEBE6 /* CMRefresh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +103,7 @@
 			children = (
 				4C75FE671F20AFB2009EE0FA /* Classes */,
 				4C2D25231F20AF710062F588 /* CMRefresh */,
+				4C7A241E1F28401F001AEBE6 /* CMRefreshTests */,
 				4C2D25221F20AF710062F588 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				4C2D25211F20AF710062F588 /* CMRefresh.framework */,
+				4C7A241D1F28401F001AEBE6 /* CMRefreshTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,6 +174,15 @@
 			path = CMRamotionAnimator;
 			sourceTree = "<group>";
 		};
+		4C7A241E1F28401F001AEBE6 /* CMRefreshTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C7A241F1F28401F001AEBE6 /* CMRefreshTests.m */,
+				4C7A24211F28401F001AEBE6 /* Info.plist */,
+			);
+			path = CMRefreshTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -194,6 +228,24 @@
 			productReference = 4C2D25211F20AF710062F588 /* CMRefresh.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4C7A241C1F28401F001AEBE6 /* CMRefreshTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C7A24271F28401F001AEBE6 /* Build configuration list for PBXNativeTarget "CMRefreshTests" */;
+			buildPhases = (
+				4C7A24191F28401F001AEBE6 /* Sources */,
+				4C7A241A1F28401F001AEBE6 /* Frameworks */,
+				4C7A241B1F28401F001AEBE6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C7A24241F28401F001AEBE6 /* PBXTargetDependency */,
+			);
+			name = CMRefreshTests;
+			productName = CMRefreshTests;
+			productReference = 4C7A241D1F28401F001AEBE6 /* CMRefreshTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,6 +256,11 @@
 				ORGANIZATIONNAME = "Chuck Lab";
 				TargetAttributes = {
 					4C2D25201F20AF710062F588 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 2LBUAU5573;
+						ProvisioningStyle = Automatic;
+					};
+					4C7A241C1F28401F001AEBE6 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 2LBUAU5573;
 						ProvisioningStyle = Automatic;
@@ -223,12 +280,20 @@
 			projectRoot = "";
 			targets = (
 				4C2D25201F20AF710062F588 /* CMRefresh */,
+				4C7A241C1F28401F001AEBE6 /* CMRefreshTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4C2D251F1F20AF710062F588 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C7A241B1F28401F001AEBE6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,7 +321,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C7A24191F28401F001AEBE6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C7A24201F28401F001AEBE6 /* CMRefreshTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C7A24241F28401F001AEBE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C2D25201F20AF710062F588 /* CMRefresh */;
+			targetProxy = 4C7A24231F28401F001AEBE6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4C2D25271F20AF710062F588 /* Debug */ = {
@@ -393,6 +474,30 @@
 			};
 			name = Release;
 		};
+		4C7A24251F28401F001AEBE6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 2LBUAU5573;
+				INFOPLIST_FILE = CMRefreshTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chucklab.CMRefreshTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4C7A24261F28401F001AEBE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 2LBUAU5573;
+				INFOPLIST_FILE = CMRefreshTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chucklab.CMRefreshTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -413,6 +518,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		4C7A24271F28401F001AEBE6 /* Build configuration list for PBXNativeTarget "CMRefreshTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C7A24251F28401F001AEBE6 /* Debug */,
+				4C7A24261F28401F001AEBE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
