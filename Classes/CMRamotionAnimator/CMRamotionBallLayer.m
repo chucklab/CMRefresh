@@ -83,7 +83,6 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
 @interface CMCircleLayer () <CAAnimationDelegate>
 
-@property (nonatomic, strong) CMSpinerLayer *spiner;
 @property (nonatomic, copy) CMCompletion didEndAnimation;
 
 @end
@@ -229,6 +228,8 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 @end
 
 @interface CMSpinerLayer () <CAAnimationDelegate>
+// Timer
+@property (nonatomic, strong) CADisplayLink *displayLink;
 @end
 
 @implementation CMSpinerLayer
@@ -240,6 +241,9 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
     }
     
     MLog(@"[CMSpinerLayer] --> initWithFrame: %@", NSStringFromCGRect(frame));
+    
+    // Default Values
+    self.displaySpeed = 1.0;
     
     self.frame = frame;
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
@@ -258,6 +262,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
     self.strokeColor = color.CGColor;
     self.lineWidth = 4;
     self.lineCap = kCALineCapRound;
+    self.speed = 0;
     
     self.strokeStart = 0;
     self.strokeEnd = 0;
@@ -268,7 +273,48 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
 - (void)dealloc {
     MLog(@"[CMSpinerLayer] --> dealloc");
+    if (self.displayLink) {
+        [self.displayLink invalidate];
+        self.displayLink = nil;
+    }
+    
     [self stopAnimation];
+}
+
+#pragma mark - Display
+- (void)displayAction {
+    SLog(@"self.timeOffset(%@), displaySpeed(%@)", @(self.timeOffset), @(_displaySpeed));
+    
+    if (self.timeOffset > 0.1) {
+        if (![self animationForKey: GroupAnimationKey]) {
+            SLog(@"Add Group Animation");
+            
+            /*******************
+             *  Group Animation
+             ******************/
+            [self groupAnimation];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self removeAnimationForKey: FirstAnimationKey];
+            });
+        }
+    }
+    
+    self.timeOffset += 0.01 * _displaySpeed;
+}
+
+- (void)addDisPlay {
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayAction)];
+    if (self.displayLink) {
+        [self.displayLink addToRunLoop: [NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void)removeDisPlay {
+    if (self.displayLink) {
+        [self.displayLink invalidate];
+        self.displayLink = nil;
+    }
 }
 
 #pragma mark - Getters & Setters
@@ -292,6 +338,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 - (void)animation {
     self.hidden = NO;
     
+    [self addDisPlay];
     
     /***************
      *  Rotate
@@ -332,6 +379,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
     animGroup.duration = strokeEndAnimation1.duration + strokeStartAnimation1.duration - DurationOffset * 1 + DurationOffset * 1.2;
     
     animGroup.animations = @[strokeEndAnimation1, strokeStartAnimation1];
+    
     [self addAnimation:animGroup forKey: GroupAnimationKey];
 }
 
@@ -370,25 +418,28 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
     
     if (anim == [self animationForKey: FirstAnimationKey]) {
         //CABasicAnimation *firstAnimation = (CABasicAnimation *)anim;
-        //SLog(@"animationDidStop --> firstAnimation");
+        SLog(@"animationDidStop --> firstAnimation");
         
         /*******************
          *  Group Animation
          ******************/
-        [self groupAnimation];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self removeAnimationForKey: FirstAnimationKey];
-        });
+//        [self groupAnimation];
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self removeAnimationForKey: FirstAnimationKey];
+//        });
     } else if (anim == [self animationForKey: GroupAnimationKey]) {
-        //SLog(@"animationDidStop --> animGroup");
+        SLog(@"animationDidStop --> animGroup");
     } else {
-        //SLog(@"animationDidStop --> ...");
+        SLog(@"animationDidStop --> ...");
     }
 }
 
 - (void)stopAnimation {
+    [self removeDisPlay];
+    
     self.hidden = YES;
+    self.timeOffset = 0;
     [self removeAllAnimations];
 }
 

@@ -40,7 +40,10 @@ typedef void (^CMCompletion)();
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 @end
 
+@class CMSpinerLayer;
+
 @interface CMCircleLayer : CAShapeLayer
+@property (nonatomic, strong) CMSpinerLayer *spiner;
 @property (nonatomic, assign) CGFloat moveUpDist;
 - (instancetype)initWithMoveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color;
 - (void)startAnimation;
@@ -48,6 +51,7 @@ typedef void (^CMCompletion)();
 @end
 
 @interface CMSpinerLayer : CAShapeLayer
+@property (nonatomic, assign) float displaySpeed;
 - (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color;
 - (void)animation;
 - (void)stopAnimation;
