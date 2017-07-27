@@ -31,7 +31,10 @@ static CFTimeInterval UpDuration = 0.5;
 /*************
  *  For Spiner
  *************/
-static const CGFloat SpinerSegmentLength = 0.005;
+static const CGFloat SpinerSegmentLength = 0.01;
+static NSString * const RotateAnimationKey = @"RotateAnimationKey";
+static NSString * const FirstAnimationKey = @"FirstAnimationKey";
+static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
 
 @interface CMRamotionBallLayer ()
@@ -93,7 +96,7 @@ static const CGFloat SpinerSegmentLength = 0.005;
         return nil;
     }
     
-    MLog(@"[CMCircleLayer] --> initWithSize: %@", @(size));
+    MLog(@"[CMCircleLayer] --> initWithMoveUpDist: %@", @(moveUpDist));
     
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     self.moveUpDist = moveUpDist;
@@ -253,7 +256,7 @@ static const CGFloat SpinerSegmentLength = 0.005;
     
     self.fillColor = nil;
     self.strokeColor = color.CGColor;
-    self.lineWidth = 2;
+    self.lineWidth = 4;
     self.lineCap = kCALineCapRound;
     
     self.strokeStart = 0;
@@ -301,7 +304,7 @@ static const CGFloat SpinerSegmentLength = 0.005;
     rotate.repeatCount = HUGE;
     rotate.fillMode = kCAFillModeForwards;
     rotate.removedOnCompletion = NO;
-    [self addAnimation:rotate forKey:rotate.keyPath];
+    [self addAnimation:rotate forKey: RotateAnimationKey];
     
     /*******************
      *  First animation
@@ -311,24 +314,25 @@ static const CGFloat SpinerSegmentLength = 0.005;
     firstAnimation.duration = 0.1;
     firstAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     firstAnimation.delegate = self;
-    [self addAnimation: firstAnimation forKey: @"firstAnimation"];
+    [self addAnimation: firstAnimation forKey: FirstAnimationKey];
 }
 
 - (void)groupAnimation {
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.removedOnCompletion = YES;
+    animGroup.removedOnCompletion = NO;
     animGroup.repeatCount = HUGE;
     animGroup.fillMode = kCAFillModeForwards;
+    animGroup.delegate = self;
     
     CABasicAnimation *strokeEndAnimation1 = [self strokeEndAnimationFrom: SpinerSegmentLength to: 0.5 + SpinerSegmentLength];
     CABasicAnimation *strokeStartAnimation1 = [self strokeStartAnimationFrom: 0.0 to: 0.5];
     
     const CGFloat DurationOffset = 0.5;
     strokeStartAnimation1.beginTime = strokeEndAnimation1.duration + strokeEndAnimation1.beginTime - DurationOffset;
-    animGroup.duration = strokeEndAnimation1.duration + strokeStartAnimation1.duration - DurationOffset * 1;
+    animGroup.duration = strokeEndAnimation1.duration + strokeStartAnimation1.duration - DurationOffset * 1 + DurationOffset * 1.2;
     
     animGroup.animations = @[strokeEndAnimation1, strokeStartAnimation1];
-    [self addAnimation:animGroup forKey:@"groupAnimation"];
+    [self addAnimation:animGroup forKey: GroupAnimationKey];
 }
 
 - (CABasicAnimation *)strokeEndAnimationFrom:(CGFloat) from to:(CGFloat) to {
@@ -336,7 +340,7 @@ static const CGFloat SpinerSegmentLength = 0.005;
     endPoint1.beginTime = 0;
     endPoint1.fromValue = @(from);
     endPoint1.toValue = @(to);
-    endPoint1.duration = 1.5;
+    endPoint1.duration = 0.8;
     endPoint1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     endPoint1.repeatCount = 1;
     endPoint1.fillMode = kCAFillModeForwards;
@@ -349,7 +353,7 @@ static const CGFloat SpinerSegmentLength = 0.005;
     startPoint1.beginTime = 0;
     startPoint1.fromValue = @(from);
     startPoint1.toValue = @(to);
-    startPoint1.duration = 0.7;
+    startPoint1.duration = 0.6;
     startPoint1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     startPoint1.repeatCount = 1;
     startPoint1.fillMode = kCAFillModeForwards;
@@ -359,28 +363,28 @@ static const CGFloat SpinerSegmentLength = 0.005;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    SLog(@"animationDidStop --> ...");
+    
     if (self.isHidden) {
         return;
     }
     
-    /*******************
-     *  Group Animation
-     ******************/
-    [self groupAnimation];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self removeAnimationForKey: @"firstAnimation"];
-    });
-    
-//    CABasicAnimation *a = (CABasicAnimation *)anim;
-//    if ([a.keyPath isEqualToString:@"strokeStart"]) {
-//        SLog(@"animationDidStop --> strokeStart");
-////        [self strokeEndAnimation];
-//    } else if ([a.keyPath isEqualToString:@"strokeEnd"]) {
-//        SLog(@"animationDidStop --> strokeEnd");
-////        [self strokeStartAnimation];
-//    }
+    if (anim == [self animationForKey: FirstAnimationKey]) {
+        //CABasicAnimation *firstAnimation = (CABasicAnimation *)anim;
+        //SLog(@"animationDidStop --> firstAnimation");
+        
+        /*******************
+         *  Group Animation
+         ******************/
+        [self groupAnimation];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self removeAnimationForKey: FirstAnimationKey];
+        });
+    } else if (anim == [self animationForKey: GroupAnimationKey]) {
+        //SLog(@"animationDidStop --> animGroup");
+    } else {
+        //SLog(@"animationDidStop --> ...");
+    }
 }
 
 - (void)stopAnimation {
