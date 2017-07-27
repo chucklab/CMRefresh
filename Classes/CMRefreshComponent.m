@@ -284,4 +284,25 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
     }
 }
 
+#pragma mark - Touch Handling
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //SLog(@"touchesBegan");
+    [self.animator refresh: self touchesBegan: touches withEvent: event];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+    //SLog(@"touchesMoved");
+    [self.animator refresh: self touchesMoved: touches withEvent: event];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+    //SLog(@"touchesEnded");
+    [self.animator refresh: self touchesEnded: touches withEvent: event];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+    //SLog(@"touchesCancelled");
+    [self.animator refresh: self touchesCancelled: touches withEvent: event];
+}
+
 @end

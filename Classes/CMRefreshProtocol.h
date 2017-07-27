@@ -43,12 +43,21 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
-- (void)refreshBegin:(CMRefreshComponent *)view;
-- (void)refreshWillEnd:(CMRefreshComponent *)view;
-- (void)refreshEnd:(CMRefreshComponent *)view finish:(BOOL)finish;
-- (void)refresh:(CMRefreshComponent *)view progressDidChange:(CGFloat) progress;
-- (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state;
-- (void)refresh:(CMRefreshComponent *)view scrollFrameChange:(CGRect) changeFrame;
+- (void)refreshBegin:(CMRefreshComponent *) view;
+- (void)refreshWillEnd:(CMRefreshComponent *) view;
+- (void)refreshEnd:(CMRefreshComponent *) view finish:(BOOL)finish;
+- (void)refresh:(CMRefreshComponent *) view progressDidChange:(CGFloat) progress;
+- (void)refresh:(CMRefreshComponent *) view stateDidChange:(CMRefreshState) state;
+- (void)refresh:(CMRefreshComponent *) view scrollFrameChange:(CGRect) changeFrame;
+
+
+/***********************
+ *  Touch Handling
+ **********************/
+- (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)refresh:(CMRefreshComponent *) view touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)refresh:(CMRefreshComponent *) view touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)refresh:(CMRefreshComponent *) view touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 
 @end
 

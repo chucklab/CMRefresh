@@ -124,17 +124,31 @@
 
 - (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state {
 //    DLog(@"stateDidChange: (view.scrollView.frame)%@", NSStringFromCGRect(view.scrollView.frame));
+    
+    UIView *tableViewWrapperView = nil;
+    NSArray *subviews = view.scrollView.subviews;
+    for (id v in subviews) {
+        //SLog(@"subview: --> %@", NSStringFromClass([v class]));
+        
+        if ([NSStringFromClass([v class]) isEqualToString: @"UITableViewWrapperView"]) {
+            tableViewWrapperView = v;
+        }
+    }
+    
     switch (state) {
         case CMRefreshStateIdle: {
-            view.scrollView.userInteractionEnabled = YES;
+            view.scrollView.delaysContentTouches = YES;
+            tableViewWrapperView.userInteractionEnabled = YES;
         } break;
         case CMRefreshStatePulling: {
         } break;
         case CMRefreshStateRefreshing: {
-            view.scrollView.userInteractionEnabled = NO;
+            view.scrollView.delaysContentTouches = NO;
+            tableViewWrapperView.userInteractionEnabled = NO;
         } break;
         case CMRefreshStateWillRefresh: {
-            view.scrollView.userInteractionEnabled = NO;
+            view.scrollView.delaysContentTouches = NO;
+            tableViewWrapperView.userInteractionEnabled = NO;
         } break;
         case CMRefreshStateNoMoreData: {
         } break;
@@ -158,9 +172,48 @@
     self.bounceLayer.scrollViewFrame = changeFrame;
 }
 
+#pragma mark - Touch Handling
+- (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //[self pauseLayer: self.bounceLayer.ballLayer];
+}
+
+- (void)refresh:(CMRefreshComponent *) view touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+}
+
+- (void)refresh:(CMRefreshComponent *) view touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //[self resumeLayer: self.bounceLayer.ballLayer];
+}
+
+- (void)refresh:(CMRefreshComponent *) view touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //[self resumeLayer: self.bounceLayer.ballLayer];
+}
+
 #pragma mark - Getters & Setters
 - (UIView *)view {
     return self;
+}
+
+#pragma mark - Helper
+
+- (void)pauseLayer:(CALayer*)layer {
+    SLog(@"Begin --> pauseLayer");
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    SLog(@"pausedTime(%@)", @(pausedTime));
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+- (void)resumeLayer:(CALayer*)layer {
+    SLog(@"Begin --> resumeLayer");
+    CFTimeInterval pausedTime = [layer timeOffset];
+    SLog(@"pausedTime(%@)", @(pausedTime));
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    SLog(@"timeSincePause(%@)", @(timeSincePause));
+    layer.beginTime = timeSincePause;
+    SLog(@"beginTime(%@)", @(timeSincePause));
 }
 
 @end
