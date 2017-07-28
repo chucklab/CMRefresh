@@ -1,15 +1,18 @@
 PODS:
+  - AHEasing (1.2)
   - Masonry (1.0.2)
   - MCCommonTableView (0.0.1)
 
 DEPENDENCIES:
+  - AHEasing (~> 1.2)
   - Masonry (~> 1.0)
   - MCCommonTableView (~> 0.0.1)
 
 SPEC CHECKSUMS:
+  AHEasing: 847f583bcd83a2bb850e38ccdb26d22e2593f34d
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MCCommonTableView: 5f0e5c4082abdf4feb64bac1f03d6cb2d23491b9
 
-PODFILE CHECKSUM: 34f25861713bf1a7be4d39481126f7283c3b5b86
+PODFILE CHECKSUM: d95776475fc9275baf45a7daea7ac18e4f64a2c3
 
 COCOAPODS: 1.2.0

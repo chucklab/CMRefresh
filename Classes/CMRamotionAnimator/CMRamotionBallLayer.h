@@ -51,8 +51,13 @@ typedef void (^CMCompletion)();
 @end
 
 @interface CMSpinerLayer : CAShapeLayer
+
+@property (nonatomic, assign) CGFloat circleWidth;
+@property (nonatomic, assign) CGFloat startAngle;
+@property (nonatomic, assign) CGFloat endAngle;
 @property (nonatomic, assign) float displaySpeed;
+
 - (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color;
-- (void)animation;
+- (void)startAnimation;
 - (void)stopAnimation;
 @end

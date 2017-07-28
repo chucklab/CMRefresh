@@ -10,6 +10,7 @@
 		4C1580A41F175CC70014CC3E /* CMRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A31F175CC70014CC3E /* CMRefreshFooterView.m */; };
 		4C1580A81F1769A50014CC3E /* CMNormalFooterAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A71F1769A50014CC3E /* CMNormalFooterAnimator.m */; };
 		4C2C0F491F15E7480019C2A1 /* CMCommonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C0F481F15E7480019C2A1 /* CMCommonExtension.m */; };
+		4CC4AF7C1F2B040800CA2542 /* CMEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4AF7B1F2B040800CA2542 /* CMEasing.m */; };
 		4CF2B4F71F131B0200E8AD5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F61F131B0200E8AD5F /* main.m */; };
 		4CF2B4FA1F131B0200E8AD5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F91F131B0200E8AD5F /* AppDelegate.m */; };
 		4CF2B4FD1F131B0200E8AD5F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4FC1F131B0200E8AD5F /* ViewController.m */; };
@@ -36,6 +37,8 @@
 		4C1580A71F1769A50014CC3E /* CMNormalFooterAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNormalFooterAnimator.m; sourceTree = "<group>"; };
 		4C2C0F471F15E7480019C2A1 /* CMCommonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCommonExtension.h; sourceTree = "<group>"; };
 		4C2C0F481F15E7480019C2A1 /* CMCommonExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCommonExtension.m; sourceTree = "<group>"; };
+		4CC4AF7A1F2B040800CA2542 /* CMEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEasing.h; sourceTree = "<group>"; };
+		4CC4AF7B1F2B040800CA2542 /* CMEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEasing.m; sourceTree = "<group>"; };
 		4CF2B4F21F131B0200E8AD5F /* CMRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF2B4F61F131B0200E8AD5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CF2B4F81F131B0200E8AD5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				4C1580A31F175CC70014CC3E /* CMRefreshFooterView.m */,
 				4CF780281F14A93000C346D4 /* UIScrollView+CMRefresh.h */,
 				4CF780291F14A93000C346D4 /* UIScrollView+CMRefresh.m */,
+				4CC4AF7A1F2B040800CA2542 /* CMEasing.h */,
+				4CC4AF7B1F2B040800CA2542 /* CMEasing.m */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -330,6 +335,7 @@
 				4CF780271F148F7100C346D4 /* CMRamotionAnimatorViewController.m in Sources */,
 				4CF9E7831F13694B00C536AD /* CMRamotionBounceLayer.m in Sources */,
 				4CF9E7801F13684000C536AD /* CMRamotionAnimator.m in Sources */,
+				4CC4AF7C1F2B040800CA2542 /* CMEasing.m in Sources */,
 				4CF9E7891F136A2400C536AD /* CMRamotionBallLayer.m in Sources */,
 				4CF2B4F71F131B0200E8AD5F /* main.m in Sources */,
 				4CF9E77C1F13636F00C536AD /* CMRefreshAnimator.m in Sources */,

@@ -7,4 +7,5 @@ platform :ios, '8.0'
 target 'CMRefreshExample' do
     pod 'Masonry', '~> 1.0'
     pod 'MCCommonTableView', '~> 0.0.1'
+    pod 'AHEasing', '~> 1.2'
 end
