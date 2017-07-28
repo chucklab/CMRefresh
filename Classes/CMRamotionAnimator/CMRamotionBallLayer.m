@@ -34,8 +34,6 @@ static CFTimeInterval UpDuration = 0.5;
  *************/
 static const CGFloat SpinerSegmentLength = 0.5;
 static NSString * const RotateAnimationKey = @"RotateAnimationKey";
-//static NSString * const FirstAnimationKey = @"FirstAnimationKey";
-//static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
 
 @interface CMRamotionBallLayer ()
@@ -232,7 +230,9 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
 
 // Timer
 @property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, assign) CFTimeInterval displayBeginTime;
+@property (nonatomic, assign) int displayCount;
+@property (nonatomic, assign) CFTimeInterval elapsedTime;
+@property (nonatomic, assign) CFTimeInterval lastDisplayTimestamp;
 
 @end
 
@@ -310,45 +310,56 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     
     // Duration
     const CGFloat EndAngleStartTime1 = 0;
-    const CGFloat EndAngleDuration1 = 0.3;
-    const CGFloat EndAngleStartTime2 = 0.3;
-    const CGFloat EndAngleDuration2 = 3;
-    const CGFloat StartAngleStartTime = 1;
-    const CGFloat StartAngleDuration = 3;
+    const CGFloat EndAngleDuration1 = 0.2;
+    const CGFloat EndAngleStartTime2 = 0.2;
+    const CGFloat EndAngleDuration2 = 2;
+    const CGFloat StartAngleStartTime = 0.7;
+    const CGFloat StartAngleDuration = 2;
     const CGFloat Duration = StartAngleStartTime + StartAngleDuration;
     
     // TimeInterval
-    CFTimeInterval t = self.displayLink.timestamp - self.displayBeginTime;
+    CFTimeInterval dt = self.displayLink.timestamp - self.lastDisplayTimestamp;
+    dt *= self.displaySpeed;
+    self.elapsedTime += dt;
     
-    int n = t / Duration;
-    t = fmod(t, Duration);
+    if (self.elapsedTime > Duration) {
+        self.displayCount++;
+        self.elapsedTime = 0.0;
+    }
+
     
-    //SLog(@"displaySpeed(%@), timestamp(%@), t(%@), n(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(t), @(n));
+    //SLog(@"displaySpeed(%@), timestamp(%@), elapsedTime(%@), displayCount(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(self.elapsedTime), @(self.displayCount));
     
     /********************
      *  First Segment
      *******************/
-    if (n == 0 && t >= EndAngleStartTime1) {
+    if (self.displayCount == 0 && self.elapsedTime >= EndAngleStartTime1) {
         self.endAngle = [CMEasing easingFromValue: 0
                                           toValue: SpinerSegmentLength
                                         totalTime: EndAngleDuration1
-                                         currTime: t - EndAngleStartTime1
+                                         currTime: self.elapsedTime - EndAngleStartTime1
                                          function: CubicEaseIn];
     }
     
-    if (t >= EndAngleStartTime2) {
+    /**************************
+     *  White line start point
+     *************************/
+    if (self.elapsedTime >= EndAngleStartTime2) {
         self.endAngle = [CMEasing easingFromValue: SpinerSegmentLength
                                           toValue: M_PI * 2 + SpinerSegmentLength
                                         totalTime: EndAngleDuration2
-                                         currTime: t - EndAngleStartTime2
-                                         function: n == 0 ? CubicEaseOut : CubicEaseInOut];
+                                         currTime: self.elapsedTime - EndAngleStartTime2
+                                         function: self.displayCount == 0 ? CubicEaseOut : CubicEaseInOut];
     }
     
-    if (t >= StartAngleStartTime) {
+    /**************************
+     *  White line end point
+     *************************/
+    if (self.elapsedTime >= StartAngleStartTime) {
         self.startAngle = [CMEasing easingFromValue: 0
                                           toValue: M_PI * 2
                                         totalTime: StartAngleDuration
-                                         currTime: t - StartAngleStartTime
+                                         currTime: self.elapsedTime - StartAngleStartTime
                                          function: QuarticEaseInOut];
     }
     
@@ -356,6 +367,20 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
      *  Update Path
      ***************/
     [self updatePath];
+    
+    /*****************************
+     *  Update Display Timestamp
+     ****************************/
+    self.lastDisplayTimestamp = self.displayLink.timestamp;
+    
+    /**************************
+     *  Speeddown
+     **************************/
+#if 0
+    if (self.displaySpeed > 1.0) {
+        self.displaySpeed -= 0.03;
+    }
+#endif
 }
 
 - (void)addDisPlay {
@@ -381,13 +406,14 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     [self rotateAnimation];
 #endif
     
-    self.displayBeginTime = CACurrentMediaTime();
-    SLog(@"startAnimation --> displayBeginTime(%@)", @(self.displayBeginTime));
+    self.lastDisplayTimestamp = CACurrentMediaTime();
     self.displayLink.paused = NO;
 }
 
 - (void)stopAnimation {
     self.displayLink.paused = YES;
+    self.displayCount = 0;
+    self.elapsedTime = 0;
     self.startAngle = 0.0;
     self.endAngle = 0.0;
     
