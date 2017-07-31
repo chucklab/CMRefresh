@@ -48,8 +48,10 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
         return nil;
     }
     
-    UpDuration = duration;
     self.frame = frame;
+    
+    UpDuration = duration;
+    
     self.circleLayer = [[CMCircleLayer alloc] initWithMoveUpDist: moveUpDist
                                                            frame: CGRectMake(0, 0, frame.size.width, frame.size.height)
                                                            color: color];
@@ -96,30 +98,18 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     
     MLog(@"[CMCircleLayer] --> initWithMoveUpDist: %@", @(moveUpDist));
     
-    CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
-    self.moveUpDist = moveUpDist;
-    self.spiner = [[CMSpinerLayer alloc] initWithFrame: /*CGRectMake(0, 0, frame.size.height, frame.size.height)*/frame
-                                                 color: color];
-    
-    [self addSublayer:self.spiner];
-    
-    CGFloat radius = circleWidth * 0.5;
     self.frame = frame;
-    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
-    CGFloat startAngle = 0 - M_PI_2;
-    CGFloat endAngle = M_PI * 2 - M_PI_2;
-    BOOL clockwise = YES;
-    self.path = [UIBezierPath bezierPathWithArcCenter: center
-                                               radius: radius
-                                           startAngle: startAngle
-                                             endAngle: endAngle
-                                            clockwise: clockwise].CGPath;
 
     self.fillColor = [color colorWithAlphaComponent:1].CGColor;
     self.strokeColor = self.fillColor;
     self.lineWidth = 0;
     self.strokeEnd = 1;
     self.hidden = YES;
+    
+    self.moveUpDist = moveUpDist;
+    
+    self.spiner = [[CMSpinerLayer alloc] initWithFrame: frame color: color];
+    [self addSublayer:self.spiner];
     
     return self;
 }
@@ -146,17 +136,23 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     
     self.spiner.frame = frame;
     
+    [self updatePath];
+}
+
+#pragma mark - Update
+- (void)updatePath {
+    CGRect frame = self.frame;
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     CGFloat radius = circleWidth * 0.5;
     CGPoint center = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
     CGFloat startAngle = 0 - M_PI_2;
     CGFloat endAngle = M_PI * 2 - M_PI_2;
     BOOL clockwise = YES;
-    self.path = [UIBezierPath bezierPathWithArcCenter:center
-                                               radius:radius
-                                           startAngle:startAngle
-                                             endAngle:endAngle
-                                            clockwise:clockwise].CGPath;
+    self.path = [UIBezierPath bezierPathWithArcCenter: center
+                                               radius: radius
+                                           startAngle: startAngle
+                                             endAngle: endAngle
+                                            clockwise: clockwise].CGPath;
 }
 
 - (void)startAnimation {
