@@ -396,7 +396,7 @@ static const CGFloat SpinerSegmentLength = 0.5;
         }
         self.shakeOffset = CGPointZero;
     } else {
-        const int ShakeRange = 1;
+        const CGFloat ShakeRange = 1.5;
         CMCircleLayer *circleLayer = (id)self.superlayer;
         if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
             circleLayer.shakeOffset = CGPointMake([CMSpinerLayer randWithShakeRange: ShakeRange], [CMSpinerLayer randWithShakeRange: ShakeRange]);
@@ -466,8 +466,11 @@ static const CGFloat SpinerSegmentLength = 0.5;
 }
 
 #pragma mark - Helpers
-+ (int)randWithShakeRange: (int) shakeRange {
-    return (arc4random() % (shakeRange * 2 + 1)) - shakeRange;
++ (CGFloat)randWithShakeRange: (CGFloat) shakeRange {
+    shakeRange *= 1000;
+    int rand = (arc4random() % ((int)shakeRange * 2 + 1)) - (int)shakeRange;
+    rand *= 0.001;
+    return rand;
 }
 
 @end
