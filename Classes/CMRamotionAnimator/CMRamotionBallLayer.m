@@ -322,9 +322,9 @@ static const CGFloat SpinerSegmentLength = 0.5;
     const CGFloat EndAngleStartTime1 = 0;
     const CGFloat EndAngleDuration1 = 0.2;
     const CGFloat EndAngleStartTime2 = 0.2;
-    const CGFloat EndAngleDuration2 = 2;
-    const CGFloat StartAngleStartTime = 0.7;
-    const CGFloat StartAngleDuration = 2;
+    const CGFloat EndAngleDuration2 = 1;
+    const CGFloat StartAngleStartTime = 0.4;
+    const CGFloat StartAngleDuration = 1;
     const CGFloat Duration = StartAngleStartTime + StartAngleDuration;
     const CGFloat RotateDuration = 6;
     
