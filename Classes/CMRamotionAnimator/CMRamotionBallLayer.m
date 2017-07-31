@@ -232,6 +232,7 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) int displayCount;
 @property (nonatomic, assign) CFTimeInterval elapsedTime;
+@property (nonatomic, assign) CFTimeInterval rotateElapsedTime;
 @property (nonatomic, assign) CFTimeInterval lastDisplayTimestamp;
 
 @end
@@ -300,8 +301,8 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     BOOL clockwise = YES;
     self.path = [UIBezierPath bezierPathWithArcCenter: center
                                                radius: radius
-                                           startAngle: _startAngle + angleOffset
-                                             endAngle: _endAngle + angleOffset
+                                           startAngle: _startAngle + angleOffset + _rotateAngle
+                                             endAngle: _endAngle + angleOffset + _rotateAngle
                                             clockwise: clockwise].CGPath;
 }
 
@@ -316,15 +317,19 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     const CGFloat StartAngleStartTime = 0.7;
     const CGFloat StartAngleDuration = 2;
     const CGFloat Duration = StartAngleStartTime + StartAngleDuration;
+    const CGFloat RotateDuration = 6;
     
     // TimeInterval
     CFTimeInterval dt = self.displayLink.timestamp - self.lastDisplayTimestamp;
     dt *= self.displaySpeed;
     self.elapsedTime += dt;
-    
+    self.rotateElapsedTime += dt;
     if (self.elapsedTime > Duration) {
         self.displayCount++;
         self.elapsedTime = 0.0;
+    }
+    if (self.rotateElapsedTime > RotateDuration) {
+        self.rotateElapsedTime = 0.0;
     }
 
     
@@ -357,11 +362,20 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
      *************************/
     if (self.elapsedTime >= StartAngleStartTime) {
         self.startAngle = [CMEasing easingFromValue: 0
-                                          toValue: M_PI * 2
-                                        totalTime: StartAngleDuration
-                                         currTime: self.elapsedTime - StartAngleStartTime
-                                         function: QuarticEaseInOut];
+                                            toValue: M_PI * 2
+                                          totalTime: StartAngleDuration
+                                           currTime: self.elapsedTime - StartAngleStartTime
+                                           function: QuarticEaseInOut];
     }
+    
+    /**************************
+     *  Rotate
+     *************************/
+    self.rotateAngle = [CMEasing easingFromValue: 0
+                                         toValue: M_PI * 2
+                                       totalTime: RotateDuration
+                                        currTime: self.rotateElapsedTime
+                                        function: LinearInterpolation];
     
     /****************
      *  Update Path
@@ -402,10 +416,6 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
 - (void)startAnimation {
     self.hidden = NO;
     
-#if 1
-    [self rotateAnimation];
-#endif
-    
     self.lastDisplayTimestamp = CACurrentMediaTime();
     self.displayLink.paused = NO;
 }
@@ -414,26 +424,13 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     self.displayLink.paused = YES;
     self.displayCount = 0;
     self.elapsedTime = 0;
+    self.rotateElapsedTime = 0;
+    self.lastDisplayTimestamp = 0;
     self.startAngle = 0.0;
     self.endAngle = 0.0;
     
     self.hidden = YES;
     [self removeAllAnimations];
-}
-
-- (void)rotateAnimation {
-    /***************
-     *  Rotate
-     **************/
-    CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotate.fromValue = @0;
-    rotate.toValue = @(M_PI * 2);
-    rotate.duration = 6;
-    rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    rotate.repeatCount = HUGE;
-    rotate.fillMode = kCAFillModeForwards;
-    rotate.removedOnCompletion = NO;
-    [self addAnimation:rotate forKey: RotateAnimationKey];
 }
 
 @end

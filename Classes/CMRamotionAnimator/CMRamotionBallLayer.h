@@ -55,6 +55,7 @@ typedef void (^CMCompletion)();
 @property (nonatomic, assign) CGFloat circleWidth;
 @property (nonatomic, assign) CGFloat startAngle;
 @property (nonatomic, assign) CGFloat endAngle;
+@property (nonatomic, assign) CGFloat rotateAngle;
 @property (nonatomic, assign) float displaySpeed;
 
 - (instancetype)initWithFrame:(CGRect) frame color:(UIColor *) color;
