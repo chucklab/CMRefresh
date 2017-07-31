@@ -33,7 +33,7 @@ static CFTimeInterval UpDuration = 0.5;
  *  For Spiner
  *************/
 static const CGFloat SpinerSegmentLength = 0.5;
-static NSString * const RotateAnimationKey = @"RotateAnimationKey";
+//static NSString * const ShakeAnimationKey = @"ShakeAnimationKey";
 
 
 @interface CMRamotionBallLayer ()
@@ -139,12 +139,18 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     [self updatePath];
 }
 
+- (void)setShakeOffset:(CGPoint)shakeOffset {
+    _shakeOffset = shakeOffset;
+    
+    [self updatePath];
+}
+
 #pragma mark - Update
 - (void)updatePath {
     CGRect frame = self.frame;
     CGFloat circleWidth = MIN(frame.size.width, frame.size.height);
     CGFloat radius = circleWidth * 0.5;
-    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
+    CGPoint center = CGPointMake(frame.size.width * 0.5 + self.shakeOffset.x, frame.size.height * 0.5 + self.shakeOffset.y);
     CGFloat startAngle = 0 - M_PI_2;
     CGFloat endAngle = M_PI * 2 - M_PI_2;
     BOOL clockwise = YES;
@@ -231,6 +237,8 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
 @property (nonatomic, assign) CFTimeInterval rotateElapsedTime;
 @property (nonatomic, assign) CFTimeInterval lastDisplayTimestamp;
 
+@property (nonatomic, assign) CGPoint shakeOffset;
+
 @end
 
 @implementation CMSpinerLayer
@@ -288,11 +296,16 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     self.circleWidth = MIN(frame.size.width, frame.size.height);
 }
 
+- (void)setShakeOffset:(CGPoint)shakeOffset {
+    _shakeOffset = shakeOffset;
+    [self updatePath];
+}
+
 #pragma mark - Update
 - (void)updatePath {
     CGRect frame = self.frame;
     CGFloat radius = (_circleWidth * 0.5) * 1.2;
-    CGPoint center = CGPointMake(frame.size.width * 0.5, frame.origin.y + frame.size.height * 0.5);
+    CGPoint center = CGPointMake(frame.size.width * 0.5 + self.shakeOffset.x, frame.origin.y + frame.size.height * 0.5 + self.shakeOffset.y);
     const CGFloat angleOffset = -M_PI_2;
     BOOL clockwise = YES;
     self.path = [UIBezierPath bezierPathWithArcCenter: center
@@ -364,14 +377,32 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
                                            function: QuarticEaseInOut];
     }
     
-    /**************************
+    /***********
      *  Rotate
-     *************************/
+     **********/
     self.rotateAngle = [CMEasing easingFromValue: 0
                                          toValue: M_PI * 2
                                        totalTime: RotateDuration
                                         currTime: self.rotateElapsedTime
                                         function: LinearInterpolation];
+    
+    /***********
+     *  Shake
+     **********/
+    if (CMFloatEqual(self.displaySpeed, 1.0)) {
+        CMCircleLayer *circleLayer = (id)self.superlayer;
+        if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
+            circleLayer.shakeOffset = CGPointZero;
+        }
+        self.shakeOffset = CGPointZero;
+    } else {
+        const int ShakeRange = 1;
+        CMCircleLayer *circleLayer = (id)self.superlayer;
+        if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
+            circleLayer.shakeOffset = CGPointMake([CMSpinerLayer randWithShakeRange: ShakeRange], [CMSpinerLayer randWithShakeRange: ShakeRange]);
+        }
+        self.shakeOffset = CGPointMake([CMSpinerLayer randWithShakeRange: ShakeRange], [CMSpinerLayer randWithShakeRange: ShakeRange]);
+    }
     
     /****************
      *  Update Path
@@ -425,8 +456,18 @@ static NSString * const RotateAnimationKey = @"RotateAnimationKey";
     self.startAngle = 0.0;
     self.endAngle = 0.0;
     
+    CMCircleLayer *circleLayer = (id)self.superlayer;
+    if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
+        circleLayer.shakeOffset = CGPointZero;
+    }
+    
     self.hidden = YES;
     [self removeAllAnimations];
+}
+
+#pragma mark - Helpers
++ (int)randWithShakeRange: (int) shakeRange {
+    return (arc4random() % (shakeRange * 2 + 1)) - shakeRange;
 }
 
 @end

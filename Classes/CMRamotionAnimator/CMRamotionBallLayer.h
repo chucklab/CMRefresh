@@ -43,11 +43,16 @@ typedef void (^CMCompletion)();
 @class CMSpinerLayer;
 
 @interface CMCircleLayer : CAShapeLayer
+
 @property (nonatomic, strong) CMSpinerLayer *spiner;
 @property (nonatomic, assign) CGFloat moveUpDist;
+
+@property (nonatomic, assign) CGPoint shakeOffset;
+
 - (instancetype)initWithMoveUpDist:(CGFloat) moveUpDist frame:(CGRect) frame color:(UIColor *) color;
 - (void)startAnimation;
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
+
 @end
 
 @interface CMSpinerLayer : CAShapeLayer
