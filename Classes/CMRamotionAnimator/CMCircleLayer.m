@@ -88,9 +88,6 @@
 - (void)dealloc {
     MLog(@"[CMCircleLayer] --> (%@) --> dealloc", self);
     
-    [self removeDisPlay];
-    [self removeAllAnimations];
-    
     [self endAnimation: NO complition: nil];
 }
 
@@ -216,6 +213,9 @@
     self.hidden = NO;
     
     self.lastDisplayTimestamp = CACurrentMediaTime();
+    if (self.displayLink == nil) {
+        [self addDisPlay];
+    }
     self.displayLink.paused = NO;
     
     [self moveUp: self.moveUpDist];
@@ -239,11 +239,24 @@
     
     if (animated) {
         [self moveDown:self.moveUpDist];
-        self.didEndAnimation = complition;
+        __weak typeof(self) weakSelf = self;
+        self.didEndAnimation = ^{
+            [weakSelf removeDisPlay];
+            [weakSelf removeAllAnimations];
+            
+            if (complition) {
+                complition();
+            }
+            weakSelf.strokeEnd = 0;
+        };
     } else {
+        [self removeDisPlay];
+        [self removeAllAnimations];
+    
         if (complition) {
             complition();
         }
+        self.strokeEnd = 0;
     }
 }
 
@@ -259,25 +272,6 @@
     move.fillMode = kCAFillModeForwards;
     move.removedOnCompletion = NO;
     [self addAnimation: move forKey: move.keyPath];
-    
-    
-//    /*********************
-//     *  Show Self Path
-//     ********************/
-//    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-//    animGroup.removedOnCompletion = YES;
-//    animGroup.repeatCount = 1;
-//    animGroup.fillMode = kCAFillModeForwards;
-//    
-//    CABasicAnimation *anim1 = [self endPointAnimationFrom: 0.0 to: 0.0 duration: 0.0];
-//    CABasicAnimation *anim2 = [self endPointAnimationFrom: 0.0 to: 1 duration: 1.5];
-//    
-//    anim2.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseOut];
-//    
-//    animGroup.duration = anim1.duration + anim2.duration;
-//    animGroup.animations = @[anim1, anim2];
-//    
-//    [self addAnimation:animGroup forKey: GroupAnimationKey];
 }
 
 - (void)moveDown:(CGFloat) distance {
@@ -304,10 +298,8 @@
     self.lastDisplayTimestamp = 0;
     
     
-    if (flag) {
-        if (self.didEndAnimation) {
-            self.didEndAnimation();
-        }
+    if (self.didEndAnimation) {
+        self.didEndAnimation();
     }
 }
 
