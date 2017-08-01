@@ -174,7 +174,7 @@
 
 #pragma mark - Touch Handling
 - (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.5;
+    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 0.3;
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

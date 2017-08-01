@@ -136,3 +136,8 @@ static inline UIFont * CMFont_DefaultBold(CGFloat size) {
     return CMFont(CMFontName_DefaultBold, size);
 }
 
+/***********************
+ *  Block
+ ***********************/
+typedef void (^CMCompletion)();
+

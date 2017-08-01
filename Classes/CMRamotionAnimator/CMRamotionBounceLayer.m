@@ -113,10 +113,11 @@
     
     const CGFloat BallW = 40;
     if (self.ballLayer == nil) {
-        self.ballLayer = [[CMRamotionBallLayer alloc] initWithFrame: CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW)
-                                                           duration: self.animDuration
-                                                         moveUpDist: 60 + self.execute * 0.5
-                                                              color: self.ballColor];
+        self.ballLayer = [[CMRamotionBallLayer alloc] init];
+        self.ballLayer.frame = CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW);
+        self.ballLayer.upDuration = self.animDuration;
+        self.ballLayer.moveUpDist = 60 + self.execute * 0.5;
+        self.ballLayer.ballColor = self.ballColor;
         [self addSublayer: self.ballLayer];
         self.ballLayer.scroll = self.scroll;
     }
