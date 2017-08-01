@@ -9,8 +9,8 @@
 #import <Masonry.h>
 #import <MCCommonTableView.h>
 
-#import "CMCommon.h"
 #import "CMRamotionAnimatorViewController.h"
+#import "CMCommon.h"
 #import "CMRefresh.h"
 
 @interface CMRamotionAnimatorViewController ()

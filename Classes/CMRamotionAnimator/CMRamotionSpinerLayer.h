@@ -1,5 +1,5 @@
 //
-//  CMCircleLayer.h
+//  CMRamotionSpinerLayer.h
 //  CMRefresh
 //
 // *********************************************
@@ -27,30 +27,16 @@
 
 #import "CMCommon.h"
 
-typedef enum CMPathType {
-    CMPathTypeNone,
-    CMPathTypeBall,
-    CMPathTypeAirplane,
-    CMPathTypeCalender,
-    CMPathTypeEFLogo,
-} CMPathType;
+@interface CMRamotionSpinerLayer : CAShapeLayer
 
-@class CMSpinerLayer;
-
-@interface CMCircleLayer : CAShapeLayer
-
-@property (nonatomic, strong) CMSpinerLayer *spiner;
-@property (nonatomic, assign) CGFloat moveUpDist;
+@property (nonatomic, assign) CGFloat circleWidth;
 @property (nonatomic, strong) UIColor *ballColor;
-@property (nonatomic, assign) CFTimeInterval upDuration;
-
-@property (nonatomic, assign) CMPathType pathType;
-
+@property (nonatomic, assign) CGFloat startAngle;
+@property (nonatomic, assign) CGFloat endAngle;
+@property (nonatomic, assign) CGFloat rotateAngle;
 @property (nonatomic, assign) float displaySpeed;
-@property (nonatomic, assign) CGPoint shakeOffset;
 
 - (void)startAnimation;
-- (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
+- (void)stopAnimation;
 
 @end
-

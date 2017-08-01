@@ -1,5 +1,5 @@
 //
-//  CMSpinerLayer.m
+//  CMRamotionSpinerLayer.m
 //  CMRefresh
 //
 // *********************************************
@@ -22,14 +22,14 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import "CMSpinerLayer.h"
+#import "CMRamotionSpinerLayer.h"
 #import "CMEasing.h"
-#import "CMCircleLayer.h"
+#import "CMRamotionCircleLayer.h"
 
 static const CGFloat SpinerSegmentLength = 0.5;
 //static NSString * const ShakeAnimationKey = @"ShakeAnimationKey";
 
-@interface CMSpinerLayer () <CAAnimationDelegate>
+@interface CMRamotionSpinerLayer () <CAAnimationDelegate>
 
 // Timer
 @property (nonatomic, strong) CADisplayLink *displayLink;
@@ -42,7 +42,7 @@ static const CGFloat SpinerSegmentLength = 0.5;
 
 @end
 
-@implementation CMSpinerLayer
+@implementation CMRamotionSpinerLayer
 
 - (instancetype)init {
     self = [super init];
@@ -50,7 +50,7 @@ static const CGFloat SpinerSegmentLength = 0.5;
         return nil;
     }
     
-    MLog(@"[CMSpinerLayer] --> init");
+    MLog(@"[CMRamotionSpinerLayer] --> init");
     
     // Default Values
     self.circleWidth = 0.0;
@@ -75,7 +75,7 @@ static const CGFloat SpinerSegmentLength = 0.5;
 }
 
 - (void)dealloc {
-    MLog(@"[CMSpinerLayer] --> dealloc");
+    MLog(@"[CMRamotionSpinerLayer] --> dealloc");
     
     [self removeDisPlay];
     [self stopAnimation];
@@ -191,18 +191,18 @@ static const CGFloat SpinerSegmentLength = 0.5;
      **********/
 #if 0
     if (CMFloatEqual(self.displaySpeed, 1.0)) {
-        CMCircleLayer *circleLayer = (id)self.superlayer;
-        if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
+        CMRamotionCircleLayer *circleLayer = (id)self.superlayer;
+        if (circleLayer && [circleLayer isKindOfClass: [CMRamotionCircleLayer class]]) {
             circleLayer.shakeOffset = CGPointZero;
         }
         self.shakeOffset = CGPointZero;
     } else {
         const CGFloat ShakeRange = 1.5;
-        CMCircleLayer *circleLayer = (id)self.superlayer;
-        if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
-            circleLayer.shakeOffset = CGPointMake([CMSpinerLayer randWithShakeRange: ShakeRange], [CMSpinerLayer randWithShakeRange: ShakeRange]);
+        CMRamotionCircleLayer *circleLayer = (id)self.superlayer;
+        if (circleLayer && [circleLayer isKindOfClass: [CMRamotionCircleLayer class]]) {
+            circleLayer.shakeOffset = CGPointMake([CMRamotionSpinerLayer randWithShakeRange: ShakeRange], [CMRamotionSpinerLayer randWithShakeRange: ShakeRange]);
         }
-        self.shakeOffset = CGPointMake([CMSpinerLayer randWithShakeRange: ShakeRange], [CMSpinerLayer randWithShakeRange: ShakeRange]);
+        self.shakeOffset = CGPointMake([CMRamotionSpinerLayer randWithShakeRange: ShakeRange], [CMRamotionSpinerLayer randWithShakeRange: ShakeRange]);
     }
 #endif
     
@@ -258,8 +258,8 @@ static const CGFloat SpinerSegmentLength = 0.5;
     self.startAngle = 0.0;
     self.endAngle = 0.0;
     
-    CMCircleLayer *circleLayer = (id)self.superlayer;
-    if (circleLayer && [circleLayer isKindOfClass: [CMCircleLayer class]]) {
+    CMRamotionCircleLayer *circleLayer = (id)self.superlayer;
+    if (circleLayer && [circleLayer isKindOfClass: [CMRamotionCircleLayer class]]) {
         circleLayer.shakeOffset = CGPointZero;
     }
     

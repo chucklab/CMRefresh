@@ -1,5 +1,5 @@
 //
-//  CMCircleLayer.m
+//  CMRamotionCircleLayer.m
 //  CMRefresh
 //
 // *********************************************
@@ -22,15 +22,15 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import "CMCircleLayer.h"
-#import "CMSpinerLayer.h"
+#import "CMRamotionCircleLayer.h"
+#import "CMRamotionSpinerLayer.h"
 #import "CMPathMaker.h"
 #import "CMEasing.h"
 
 //static NSString * const EndPointAnimationKey = @"EndPointAnimationKey";
 //static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
-@interface CMCircleLayer () <CAAnimationDelegate>
+@interface CMRamotionCircleLayer () <CAAnimationDelegate>
 
 @property (nonatomic, copy) CMCompletion didEndAnimation;
 
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation CMCircleLayer
+@implementation CMRamotionCircleLayer
 
 - (instancetype)init {
     self = [super init];
@@ -50,7 +50,7 @@
         return nil;
     }
     
-    MLog(@"[CMCircleLayer] --> init");
+    MLog(@"[CMRamotionCircleLayer] --> init");
     
     // Default Values
     self.displaySpeed = 1.0;
@@ -62,7 +62,7 @@
     /**************
      *  Spiner
      *************/
-    self.spiner = [[CMSpinerLayer alloc] init];
+    self.spiner = [[CMRamotionSpinerLayer alloc] init];
     [self addSublayer:self.spiner];
     
     
@@ -80,13 +80,13 @@
         return nil;
     }
     
-    MLog(@"[CMCircleLayer] --> initWithLayer");
+    MLog(@"[CMRamotionCircleLayer] --> initWithLayer");
     
     return self;
 }
 
 - (void)dealloc {
-    MLog(@"[CMCircleLayer] --> (%@) --> dealloc", self);
+    MLog(@"[CMRamotionCircleLayer] --> (%@) --> dealloc", self);
     
     [self endAnimation: NO complition: nil];
 }
@@ -290,7 +290,7 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    //ULog(@"[CMCircleLayer] --> animationDidStop");
+    //ULog(@"[CMRamotionCircleLayer] --> animationDidStop");
     
     self.displayLink.paused = YES;
     self.displayCount = 0;

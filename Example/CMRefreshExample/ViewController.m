@@ -12,6 +12,7 @@
 #import "CMCommon.h"
 #import "ViewController.h"
 #import "CMRamotionAnimatorViewController.h"
+#import "CMLogoAnimatorViewController.h"
 
 @interface ViewController ()
 
@@ -39,7 +40,10 @@
                                       CMRamotionAnimatorViewController *vc = [[CMRamotionAnimatorViewController alloc] init];
                                       [self.navigationController pushViewController: vc animated: YES];
                                   },
-//                                  @"2. Multi lines" : ^(){ DLog(@"Multi, tapped."); },
+                                  @"2. CMLogoAnimator" : ^(){
+                                      CMLogoAnimatorViewController *vc = [[CMLogoAnimatorViewController alloc] init];
+                                      [self.navigationController pushViewController: vc animated: YES];
+                                  },
 //                                  @"3. Long single line" : ^(){ DLog(@"Long, tapped."); },
 //                                  @"4. Very long text" : ^(){ DLog(@"Very, tapped."); },
 //                                  @"5. No message" : ^(){ DLog(@"No, tapped."); }

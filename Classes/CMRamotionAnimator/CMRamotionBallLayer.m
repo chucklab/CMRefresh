@@ -41,7 +41,7 @@
     /*****************
      *  Circle Layer
      ****************/
-    self.circleLayer = [[CMCircleLayer alloc] init];
+    self.circleLayer = [[CMRamotionCircleLayer alloc] init];
     [self addSublayer: self.circleLayer];
     
     return self;

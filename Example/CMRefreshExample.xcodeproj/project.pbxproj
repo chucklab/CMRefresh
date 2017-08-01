@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0A48AF1F301B74005CDF1F /* CMCircleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A48AE1F301B74005CDF1F /* CMCircleLayer.m */; };
-		4C0A48B21F301BB4005CDF1F /* CMSpinerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A48B11F301BB4005CDF1F /* CMSpinerLayer.m */; };
+		4C0A48AF1F301B74005CDF1F /* CMRamotionCircleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A48AE1F301B74005CDF1F /* CMRamotionCircleLayer.m */; };
+		4C0A48B21F301BB4005CDF1F /* CMRamotionSpinerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A48B11F301BB4005CDF1F /* CMRamotionSpinerLayer.m */; };
 		4C1580A41F175CC70014CC3E /* CMRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A31F175CC70014CC3E /* CMRefreshFooterView.m */; };
 		4C1580A81F1769A50014CC3E /* CMNormalFooterAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A71F1769A50014CC3E /* CMNormalFooterAnimator.m */; };
 		4C2C0F491F15E7480019C2A1 /* CMCommonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C0F481F15E7480019C2A1 /* CMCommonExtension.m */; };
 		4CBAA2471F2F27C4003C2E68 /* CMPathMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAA2461F2F27C4003C2E68 /* CMPathMaker.m */; };
 		4CC4AF7C1F2B040800CA2542 /* CMEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4AF7B1F2B040800CA2542 /* CMEasing.m */; };
+		4CF1EA711F3052170018F5F4 /* CMLogoAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */; };
+		4CF1EA741F3055940018F5F4 /* CMLogoAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA731F3055940018F5F4 /* CMLogoAnimatorViewController.m */; };
+		4CF1EA771F3057760018F5F4 /* CMLogoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */; };
 		4CF2B4F71F131B0200E8AD5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F61F131B0200E8AD5F /* main.m */; };
 		4CF2B4FA1F131B0200E8AD5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F91F131B0200E8AD5F /* AppDelegate.m */; };
 		4CF2B4FD1F131B0200E8AD5F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4FC1F131B0200E8AD5F /* ViewController.m */; };
@@ -33,10 +36,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C0A48AD1F301B74005CDF1F /* CMCircleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCircleLayer.h; sourceTree = "<group>"; };
-		4C0A48AE1F301B74005CDF1F /* CMCircleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCircleLayer.m; sourceTree = "<group>"; };
-		4C0A48B01F301BB4005CDF1F /* CMSpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSpinerLayer.h; sourceTree = "<group>"; };
-		4C0A48B11F301BB4005CDF1F /* CMSpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSpinerLayer.m; sourceTree = "<group>"; };
+		4C0A48AD1F301B74005CDF1F /* CMRamotionCircleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRamotionCircleLayer.h; sourceTree = "<group>"; };
+		4C0A48AE1F301B74005CDF1F /* CMRamotionCircleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRamotionCircleLayer.m; sourceTree = "<group>"; };
+		4C0A48B01F301BB4005CDF1F /* CMRamotionSpinerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRamotionSpinerLayer.h; sourceTree = "<group>"; };
+		4C0A48B11F301BB4005CDF1F /* CMRamotionSpinerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRamotionSpinerLayer.m; sourceTree = "<group>"; };
 		4C1580A11F17545C0014CC3E /* CMRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMRefresh.h; sourceTree = "<group>"; };
 		4C1580A21F175CC70014CC3E /* CMRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRefreshFooterView.h; sourceTree = "<group>"; };
 		4C1580A31F175CC70014CC3E /* CMRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRefreshFooterView.m; sourceTree = "<group>"; };
@@ -48,6 +51,12 @@
 		4CBAA2461F2F27C4003C2E68 /* CMPathMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPathMaker.m; sourceTree = "<group>"; };
 		4CC4AF7A1F2B040800CA2542 /* CMEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEasing.h; sourceTree = "<group>"; };
 		4CC4AF7B1F2B040800CA2542 /* CMEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEasing.m; sourceTree = "<group>"; };
+		4CF1EA6F1F3052170018F5F4 /* CMLogoAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogoAnimator.h; sourceTree = "<group>"; };
+		4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoAnimator.m; sourceTree = "<group>"; };
+		4CF1EA721F3055940018F5F4 /* CMLogoAnimatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogoAnimatorViewController.h; sourceTree = "<group>"; };
+		4CF1EA731F3055940018F5F4 /* CMLogoAnimatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoAnimatorViewController.m; sourceTree = "<group>"; };
+		4CF1EA751F3057760018F5F4 /* CMLogoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogoLayer.h; sourceTree = "<group>"; };
+		4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoLayer.m; sourceTree = "<group>"; };
 		4CF2B4F21F131B0200E8AD5F /* CMRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF2B4F61F131B0200E8AD5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CF2B4F81F131B0200E8AD5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,6 +113,17 @@
 			path = CMNormalAnimator;
 			sourceTree = "<group>";
 		};
+		4CF1EA6E1F3052170018F5F4 /* CMLogoAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				4CF1EA6F1F3052170018F5F4 /* CMLogoAnimator.h */,
+				4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */,
+				4CF1EA751F3057760018F5F4 /* CMLogoLayer.h */,
+				4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */,
+			);
+			path = CMLogoAnimator;
+			sourceTree = "<group>";
+		};
 		4CF2B4E91F131B0200E8AD5F = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +152,8 @@
 				4CF2B4FC1F131B0200E8AD5F /* ViewController.m */,
 				4CF780251F148F7100C346D4 /* CMRamotionAnimatorViewController.h */,
 				4CF780261F148F7100C346D4 /* CMRamotionAnimatorViewController.m */,
+				4CF1EA721F3055940018F5F4 /* CMLogoAnimatorViewController.h */,
+				4CF1EA731F3055940018F5F4 /* CMLogoAnimatorViewController.m */,
 				4CF2B4FE1F131B0200E8AD5F /* Main.storyboard */,
 				4CF2B5011F131B0200E8AD5F /* Assets.xcassets */,
 				4CF2B5031F131B0200E8AD5F /* LaunchScreen.storyboard */,
@@ -154,6 +176,7 @@
 			children = (
 				4C1580A51F17697B0014CC3E /* CMNormalAnimator */,
 				4CF9E77D1F13682D00C536AD /* CMRamotionAnimator */,
+				4CF1EA6E1F3052170018F5F4 /* CMLogoAnimator */,
 				4C1580A11F17545C0014CC3E /* CMRefresh.h */,
 				4CF9E7711F131E6100C536AD /* CMCommon.h */,
 				4C2C0F471F15E7480019C2A1 /* CMCommonExtension.h */,
@@ -183,16 +206,16 @@
 			children = (
 				4CF9E77E1F13684000C536AD /* CMRamotionAnimator.h */,
 				4CF9E77F1F13684000C536AD /* CMRamotionAnimator.m */,
-				4CF9E7841F136A0000C536AD /* CMRamotionWaveLayer.h */,
-				4CF9E7851F136A0000C536AD /* CMRamotionWaveLayer.m */,
 				4CF9E7811F13694B00C536AD /* CMRamotionBounceLayer.h */,
 				4CF9E7821F13694B00C536AD /* CMRamotionBounceLayer.m */,
+				4CF9E7841F136A0000C536AD /* CMRamotionWaveLayer.h */,
+				4CF9E7851F136A0000C536AD /* CMRamotionWaveLayer.m */,
 				4CF9E7871F136A2400C536AD /* CMRamotionBallLayer.h */,
 				4CF9E7881F136A2400C536AD /* CMRamotionBallLayer.m */,
-				4C0A48AD1F301B74005CDF1F /* CMCircleLayer.h */,
-				4C0A48AE1F301B74005CDF1F /* CMCircleLayer.m */,
-				4C0A48B01F301BB4005CDF1F /* CMSpinerLayer.h */,
-				4C0A48B11F301BB4005CDF1F /* CMSpinerLayer.m */,
+				4C0A48AD1F301B74005CDF1F /* CMRamotionCircleLayer.h */,
+				4C0A48AE1F301B74005CDF1F /* CMRamotionCircleLayer.m */,
+				4C0A48B01F301BB4005CDF1F /* CMRamotionSpinerLayer.h */,
+				4C0A48B11F301BB4005CDF1F /* CMRamotionSpinerLayer.m */,
 			);
 			path = CMRamotionAnimator;
 			sourceTree = "<group>";
@@ -343,12 +366,14 @@
 				4CF2B4FD1F131B0200E8AD5F /* ViewController.m in Sources */,
 				4CF7802A1F14A93000C346D4 /* UIScrollView+CMRefresh.m in Sources */,
 				4C1580A41F175CC70014CC3E /* CMRefreshFooterView.m in Sources */,
+				4CF1EA741F3055940018F5F4 /* CMLogoAnimatorViewController.m in Sources */,
 				4CF9E7861F136A0000C536AD /* CMRamotionWaveLayer.m in Sources */,
 				4CF7802D1F14AF4A00C346D4 /* CMRefreshHeaderView.m in Sources */,
-				4C0A48AF1F301B74005CDF1F /* CMCircleLayer.m in Sources */,
+				4C0A48AF1F301B74005CDF1F /* CMRamotionCircleLayer.m in Sources */,
 				4CF9E7791F1341D100C536AD /* CMRefreshComponent.m in Sources */,
 				4CF2B4FA1F131B0200E8AD5F /* AppDelegate.m in Sources */,
-				4C0A48B21F301BB4005CDF1F /* CMSpinerLayer.m in Sources */,
+				4C0A48B21F301BB4005CDF1F /* CMRamotionSpinerLayer.m in Sources */,
+				4CF1EA771F3057760018F5F4 /* CMLogoLayer.m in Sources */,
 				4CF780271F148F7100C346D4 /* CMRamotionAnimatorViewController.m in Sources */,
 				4CF9E7831F13694B00C536AD /* CMRamotionBounceLayer.m in Sources */,
 				4CBAA2471F2F27C4003C2E68 /* CMPathMaker.m in Sources */,
@@ -357,6 +382,7 @@
 				4CF9E7891F136A2400C536AD /* CMRamotionBallLayer.m in Sources */,
 				4CF2B4F71F131B0200E8AD5F /* main.m in Sources */,
 				4CF9E77C1F13636F00C536AD /* CMRefreshAnimator.m in Sources */,
+				4CF1EA711F3052170018F5F4 /* CMLogoAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
