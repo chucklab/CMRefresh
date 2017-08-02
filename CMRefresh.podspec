@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CMRefresh"
-  s.version      = "0.0.8"
+  s.version      = "0.0.9"
   s.summary      = "Some util refresh categories for UIScrollView and it's subclasses."
   s.description  = <<-DESC
   Some util refresh categories for UIScrollView and it's subclasses, which write in Objective-C, wish you love it, enjoy the code:D
