@@ -60,6 +60,7 @@
     self.insets = UIEdgeInsetsZero;
     self.trigger = 140;
     self.execute = 90;
+    self.userInteractionEnabled = NO;
     
     self.scroll = scroll;
     self.ballColor = ballColor ? ballColor : DefaultBallColor;
@@ -204,6 +205,11 @@
     _logoPathType = logoPathType;
     
     self.bounceLayer.logoPathType = logoPathType;
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+    ULog(@"CMRamotionAnimator Frame: %@", NSStringFromCGRect(frame));
 }
 
 #pragma mark - Helper
