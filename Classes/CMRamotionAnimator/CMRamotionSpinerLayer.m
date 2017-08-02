@@ -91,6 +91,8 @@ static const CGFloat SpinerSegmentLength = 0.5;
 - (void)setFrame:(CGRect)frame {
     [super setFrame: frame];
     
+    ULog(@"Spiner Frame: %@", NSStringFromCGRect(frame));
+    
     self.circleWidth = MIN(frame.size.width, frame.size.height);
 }
 
@@ -142,7 +144,7 @@ static const CGFloat SpinerSegmentLength = 0.5;
     }
 
     
-    //SLog(@"displaySpeed(%@), timestamp(%@), elapsedTime(%@), displayCount(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(self.elapsedTime), @(self.displayCount));
+    //ULog(@"displaySpeed(%@), timestamp(%@), elapsedTime(%@), displayCount(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(self.elapsedTime), @(self.displayCount));
     
     /********************
      *  First Segment

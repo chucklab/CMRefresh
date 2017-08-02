@@ -54,8 +54,8 @@
     
     // Default Values
     self.displaySpeed = 1.0;
-    //self.pathType = CMPathTypeBall;
-    self.pathType = CMPathTypeEFLogo;
+    self.pathType = CMPathTypeBall;
+//    self.pathType = CMPathTypeEFLogo;
     self.hidden = YES;
     
     
@@ -101,22 +101,36 @@
 }
 
 - (void)setFrame:(CGRect)frame {
-    SLog(@"Circle frame(oringn): %@", NSStringFromCGRect(frame));
+    ULog(@"Circle frame(oringn): %@", NSStringFromCGRect(frame));
+    
+    self.spiner.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    
     /*********************
      *  Update self frame
      ********************/
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithCGPath: self.path];
-    frame = CGRectMake(self.superlayer.bounds.size.width * 0.5 - bezierPath.bounds.size.width * 0.5,
-                       self.superlayer.bounds.size.height * 0.5 - bezierPath.bounds.size.height * 0.5,
-                       bezierPath.bounds.size.width,
-                       bezierPath.bounds.size.height);
+//    if (self.path) {
+//        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithCGPath: self.path];
+//        
+//        // Make Scale
+//        CGRect pathRect = bezierPath.bounds;
+//        CGFloat scale;
+//        const CGFloat Margin = 10;
+//        if (pathRect.size.width / (pathRect.size.height + Margin * 2) >= frame.size.width / frame.size.height) {
+//            scale = frame.size.width / pathRect.size.width;
+//        }else {
+//            scale = frame.size.height / (pathRect.size.height + Margin * 2);
+//        }
+//        
+//        self.transform = CATransform3DMakeScale(scale, scale, 1);
+//        frame = CGRectMake(frame.size.width * 0.5 - bezierPath.bounds.size.width * scale * 0.5,
+//                           Margin * scale,
+//                           bezierPath.bounds.size.width * scale,
+//                           bezierPath.bounds.size.height * scale);
+//    }
     
-    SLog(@"Circle frame: %@", NSStringFromCGRect(frame));
+    ULog(@"Circle frame: %@", NSStringFromCGRect(frame));
     
     [super setFrame: frame];
-    
-    
-    self.spiner.frame = CGRectMake(0, 0, super.frame.size.width, super.frame.size.height);
     
     [self updatePath];
 }
@@ -223,7 +237,7 @@
     /*********************
      *  Spiner Animation
      ********************/
-#if 0
+#if 1
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.upDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.spiner) {
             [self.spiner startAnimation];
@@ -308,9 +322,9 @@
     
     // Duration
     const CGFloat StrokeEndStartTime = 0.2;
-    const CGFloat StrokeEndDuration = 2.0;
-    const CGFloat StrokeStartStartTime = 2.5;
-    const CGFloat StrokeStartDuration = 2.0;
+    const CGFloat StrokeEndDuration = 1.0;
+    const CGFloat StrokeStartStartTime = 1.5;
+    const CGFloat StrokeStartDuration = 1.0;
     const CGFloat Duration = StrokeStartStartTime + StrokeStartDuration;
     
     // TimeInterval
@@ -324,7 +338,7 @@
     }
     
     
-    SLog(@"displaySpeed(%@), timestamp(%@), elapsedTime(%@), displayCount(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(self.elapsedTime), @(self.displayCount));
+    //ULog(@"displaySpeed(%@), timestamp(%@), elapsedTime(%@), displayCount(%@)", @(_displaySpeed), @(self.displayLink.timestamp), @(self.elapsedTime), @(self.displayCount));
     
     if (self.displayCount % 2 == 0) {
         /**************
