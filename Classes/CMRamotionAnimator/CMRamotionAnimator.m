@@ -37,6 +37,9 @@
 
 @property (nonatomic, weak) UIScrollView *scroll;
 
+// White alpha background
+@property (nonatomic, strong) UIControl *backControl;
+
 @property (nonatomic, strong) CMRamotionBounceLayer *bounceLayer;
 
 // Top wave's color
@@ -67,6 +70,7 @@
     self.waveColor = waveColor ? waveColor : DefaultWaveColor;
     
     // UI Setups
+    [self setupBackControl];
     [self setupBounceLayer: scroll];
     
     return self;
@@ -75,6 +79,32 @@
 - (void)dealloc {
     MLog(@"[CMRamotionAnimator] --> dealloc");
     [self.bounceLayer endAnimation: NO];
+    
+    if (self.backControl) {
+        [self.backControl removeFromSuperview];
+    }
+    
+    if (self.bounceLayer) {
+        [self.bounceLayer removeFromSuperlayer];
+    }
+}
+
+- (void)setupBackControl {
+    UIControl *backControl = [[UIControl alloc] init];
+    self.backControl = backControl;
+    
+    UIView *superview = self.scroll.superview;
+    if (superview) {
+        [superview addSubview: self.backControl];
+    }
+    
+    backControl.backgroundColor = self.ballColor;
+    backControl.alpha = 0;
+    
+    [backControl addTarget: self action: @selector(backControlTouchDown) forControlEvents: UIControlEventTouchDown];
+    [backControl addTarget: self action: @selector(backControlTouchUpInside) forControlEvents: UIControlEventTouchUpInside];
+    [backControl addTarget: self action: @selector(backControlTouchUpOutside) forControlEvents: UIControlEventTouchUpOutside];
+    [backControl addTarget: self action: @selector(backControlTouchCancel) forControlEvents: UIControlEventTouchCancel];
 }
 
 - (void)setupBounceLayer:(UIScrollView *) scroll {
@@ -101,17 +131,36 @@
 
 #pragma mark - CMRefreshProtocol
 - (void)refreshBegin:(CMRefreshComponent *)view {
+    ULog(@"refreshBegin");
+    
     [self.bounceLayer wave: self.execute];
     [self.bounceLayer startAnimation];
 }
 
 - (void)refreshWillEnd:(CMRefreshComponent *)view {
+    ULog(@"refreshWillEnd");
 }
 
 - (void)refreshEnd:(CMRefreshComponent *)view finish:(BOOL)finish {
+    ULog(@"refreshEnd finish(%@)", finish ? @"YES" : @"NO");
+    
     if (!finish) {
         [self.bounceLayer endAnimation: YES];
     } else {
+        /*********************
+         *  Hide Back Control
+         ********************/
+        [UIView animateWithDuration: 0.3
+                              delay: 0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations: ^{
+                             self.backControl.alpha = 0.0;
+                         } completion: nil];
+        
+    
+        /*********************
+         *  End Bounce Layer
+         ********************/
         self.bounceLayer.ballLayer.hidden = YES;
         self.bounceLayer.linkLayer.hidden = YES;
         [self.bounceLayer.wavelayer endAnimation: YES];
@@ -119,14 +168,15 @@
 }
 
 - (void)refresh:(CMRefreshComponent *)view progressDidChange:(CGFloat) progress {
-//    DLog(@"progressDidChange: %@", @(progress));
+    ULog(@"refresh progressDidChange: %.2f", progress);
+    
     CGFloat offY = self.trigger * progress;
     [self.bounceLayer wave: offY];
+    
+    self.backControl.alpha = progress;
 }
 
 - (void)refresh:(CMRefreshComponent *)view stateDidChange:(CMRefreshState) state {
-//    DLog(@"stateDidChange: (view.scrollView.frame)%@", NSStringFromCGRect(view.scrollView.frame));
-    
     UIView *tableViewWrapperView = nil;
     NSArray *subviews = view.scrollView.subviews;
     for (id v in subviews) {
@@ -171,29 +221,54 @@
     
     //SLog(@"scrollFrameChange: %@", NSStringFromCGRect(changeFrame));
     
+    self.backControl.frame = changeFrame;
     self.bounceLayer.scrollViewFrame = changeFrame;
+}
+
+#pragma mark - Actions
+- (void)backControlTouchDown {
+    ULog(@"backControlTouchDown");
+    
+    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 0.3;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 5;
+    [self.bounceLayer.ballLayer.circleLayer showLogo];
+}
+
+- (void)backControlTouchUpInside {
+    ULog(@"backControlTouchUpInside");
+    
+    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
+    [self.bounceLayer.ballLayer.circleLayer hideLogo];
+}
+
+- (void)backControlTouchUpOutside {
+    ULog(@"backControlTouchUpOutside");
+    
+    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
+    [self.bounceLayer.ballLayer.circleLayer hideLogo];
+}
+
+- (void)backControlTouchCancel {
+    ULog(@"backControlTouchCancel");
+    
+    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
+    [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 #pragma mark - Touch Handling
 - (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 0.3;
-    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 5;
-    [self.bounceLayer.ballLayer.circleLayer showLogo];
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
-    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
-    [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
-    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
-    [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 #pragma mark - Getters & Setters

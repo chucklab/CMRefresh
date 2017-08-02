@@ -32,9 +32,6 @@
 // Animation duration
 @property (nonatomic, assign) CFTimeInterval animDuration;
 
-// White alpha background
-@property (nonatomic, strong) CALayer *backLayer;
-
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
@@ -63,7 +60,6 @@
     
     // Default values
     self.animDuration = 0.45;
-    self.backLayer = [CALayer layer];
     self.linkLayer = [CAShapeLayer layer];
     self.execute = 0;
     self.previousOffY = 0;
@@ -73,9 +69,6 @@
     self.execute = execute;
     self.linkLayer.fillColor = ballColor.CGColor;
     self.backgroundColor = [UIColor clearColor].CGColor;
-    self.backLayer.backgroundColor = ballColor.CGColor;
-    self.backLayer.opacity = 0;
-    [self addSublayer: self.backLayer];
     [self addSublayer: self.linkLayer];
     
     return self;
@@ -123,8 +116,6 @@
         self.ballLayer.logoPathType = self.logoPathType;
     }
     self.ballLayer.frame = CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW);
-    
-    self.backLayer.frame = scrollViewFrame;
 }
 
 - (void)setLogoPathType:(CMPathType)logoPathType {
@@ -141,12 +132,7 @@
     }
     
     [self.wavelayer wave: y execute: self.execute];
-    CGFloat progress = y / self.execute;
-    //DLog(@"backLayer.opacity: %@", @(progress));
-    
-    //SLog(@"wave: %@", @(y));
-    
-    self.backLayer.opacity = progress;
+    //ULog(@"wave: %@", @(y));
 }
 
 - (void)startAnimation {
