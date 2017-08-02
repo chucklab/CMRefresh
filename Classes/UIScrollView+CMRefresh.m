@@ -77,6 +77,7 @@ static NSString * const CMRefreshFooterKey = @"CMRefreshFooterKey";
         animator = [[CMRamotionAnimator alloc] initWithScroll: self.scroll
                                                     ballColor: nil
                                                     waveColor: nil];
+        ((CMRamotionAnimator *)animator).logoPathType = CMPathTypeAirplane;
     }
     
     [self removeHeader];

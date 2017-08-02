@@ -68,6 +68,10 @@
                           };
     
     __weak typeof(self) weakSelf = self;
+    CMRamotionAnimator *animator = [[CMRamotionAnimator alloc] initWithScroll: tableView
+                                                                    ballColor: nil
+                                                                    waveColor: nil];
+    animator.logoPathType = CMPathTypeAirplane;
     [tableView.cm addHeadRefreshWithAnimator: nil handler: ^{
         //DLog(@"Refresh handler");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

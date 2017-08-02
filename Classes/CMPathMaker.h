@@ -24,6 +24,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum CMPathType {
+    CMPathTypeNone,
+    CMPathTypeAirplane,
+    CMPathTypeCalender,
+    CMPathTypeEFLogo,
+} CMPathType;
+
 @interface CMPathMaker : NSObject
 
 + (CGPathRef)airplanePath;

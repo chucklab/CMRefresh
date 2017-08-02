@@ -120,11 +120,19 @@
         self.ballLayer.ballColor = self.ballColor;
         [self addSublayer: self.ballLayer];
         self.ballLayer.scroll = self.scroll;
+        self.ballLayer.logoPathType = self.logoPathType;
     }
     self.ballLayer.frame = CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW);
     
     self.backLayer.frame = scrollViewFrame;
 }
+
+- (void)setLogoPathType:(CMPathType)logoPathType {
+    _logoPathType = logoPathType;
+    
+    self.ballLayer.logoPathType = logoPathType;
+}
+
 
 #pragma mark - Public Methods
 - (void)wave:(CGFloat) y {

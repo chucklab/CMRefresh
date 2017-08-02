@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CMRefreshProtocol.h"
+#import "CMPathMaker.h"
 
 @interface CMRamotionAnimator : UIView <CMRefreshProtocol>
 
@@ -41,6 +42,8 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
+// Logo path type
+@property (nonatomic, assign) CMPathType logoPathType;
 
 - (instancetype)initWithScroll:(UIScrollView *) scroll ballColor:(UIColor *) ballColor waveColor:(UIColor *) waveColor;
 

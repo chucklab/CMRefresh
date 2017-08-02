@@ -24,6 +24,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CMPathMaker.h"
+
 @class CMRamotionWaveLayer, CMRamotionBallLayer;
 
 @interface CMRamotionBounceLayer : CALayer
@@ -31,6 +33,9 @@
 @property (nonatomic, weak) UIScrollView *scroll;
 
 @property (nonatomic, assign) CGRect scrollViewFrame;
+
+// Logo path type
+@property (nonatomic, assign) CMPathType logoPathType;
 
 // The background of fluctuation above
 @property (nonatomic, strong) CMRamotionWaveLayer *wavelayer;

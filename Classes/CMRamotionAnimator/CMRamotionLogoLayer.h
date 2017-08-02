@@ -1,5 +1,5 @@
 //
-//  CMLogoLayer.h
+//  CMRamotionLogoLayer.h
 //  CMRefresh
 //
 // *********************************************
@@ -26,10 +26,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "CMCommon.h"
+#import "CMPathMaker.h"
 
-@interface CMLogoLayer : CAShapeLayer
+@interface CMRamotionLogoLayer : CAShapeLayer
 
 @property (nonatomic, strong) UIColor *logoColor;
+
+// Logo path type
+@property (nonatomic, assign) CMPathType logoPathType;
 
 - (void)startAnimation;
 - (void)stopAnimation:(BOOL) animated complition:(CMCompletion) complition;

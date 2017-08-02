@@ -88,7 +88,7 @@ static const CGFloat ReferenceHeight = 50;
 - (void)setFrame:(CGRect)frame {
     [super setFrame: frame];
     
-    SLog(@"Wave Layer Frame: %@", NSStringFromCGRect(frame));
+    ULog(@"Wave Layer Frame: %@", NSStringFromCGRect(frame));
     
     /**************************
      *  Update reference.frame

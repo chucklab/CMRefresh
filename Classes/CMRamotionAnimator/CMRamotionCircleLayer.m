@@ -26,7 +26,7 @@
 #import "CMRamotionSpinerLayer.h"
 #import "CMPathMaker.h"
 #import "CMEasing.h"
-#import "CMLogoLayer.h"
+#import "CMRamotionLogoLayer.h"
 
 //static NSString * const EndPointAnimationKey = @"EndPointAnimationKey";
 //static NSString * const GroupAnimationKey = @"GroupAnimationKey";
@@ -41,7 +41,7 @@
 @property (nonatomic, assign) CFTimeInterval elapsedTime;
 @property (nonatomic, assign) CFTimeInterval lastDisplayTimestamp;
 
-@property (nonatomic, strong) CMLogoLayer *logoLayer;
+@property (nonatomic, strong) CMRamotionLogoLayer *logoLayer;
 
 @end
 
@@ -57,9 +57,17 @@
     
     // Default Values
     self.displaySpeed = 1.0;
-    self.pathType = CMPathTypeBall;
-//    self.pathType = CMPathTypeEFLogo;
     self.hidden = YES;
+    
+    
+    /**************
+     *  Ball path
+     *************/
+    self.fillColor = self.ballColor.CGColor;
+    self.strokeColor = nil;
+    self.lineWidth = 0;
+    self.strokeEnd = 1;
+    [self updatePath];
     
     
     /**************
@@ -104,20 +112,26 @@
         return;
     }
     
-    self.logoLayer = [[CMLogoLayer alloc] init];
+    self.logoLayer = [[CMRamotionLogoLayer alloc] init];
     [self addSublayer: self.logoLayer];
     self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     self.logoLayer.logoColor = self.ballColor;
+    self.logoLayer.logoPathType = self.logoPathType;
 }
 
 #pragma mark - Getters & Setters
+- (void)setLogoPathType:(CMPathType)logoPathType {
+    _logoPathType = logoPathType;
+    
+    self.logoLayer.logoPathType = logoPathType;
+}
+
 - (void)setBallColor:(UIColor *)ballColor {
     _ballColor = ballColor;
     
+    self.fillColor = ballColor.CGColor;
     self.spiner.ballColor = ballColor;
     self.logoLayer.logoColor = ballColor;
-    
-    self.pathType = self.pathType;
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -140,89 +154,24 @@
     [self updatePath];
 }
 
-- (void)setPathType:(CMPathType)pathType {
-    _pathType = pathType;
-    
-    switch (self.pathType) {
-        case CMPathTypeNone: {
-            self.path = nil;
-        } break;
-            
-        case CMPathTypeBall: {
-            self.fillColor = self.ballColor.CGColor;
-            self.strokeColor = nil;
-            self.lineWidth = 0;
-            self.strokeEnd = 1;
-            [self updatePath];
-        } break;
-            
-        case CMPathTypeAirplane: {
-        } break;
-            
-        case CMPathTypeCalender: {
-            SLog(@"Changing to --> CMPathTypeCalender");
-            self.fillColor = nil;
-            self.strokeColor = self.ballColor.CGColor;
-            self.lineWidth = 0.5;
-            self.lineJoin = kCALineJoinRound;
-            self.lineCap = kCALineCapRound;
-            self.path = [CMPathMaker calenderPath];
-            self.strokeEnd = 0;
-        } break;
-            
-        case CMPathTypeEFLogo: {
-            SLog(@"Changing to --> CMPathTypeEFLogo");
-            self.fillColor = nil;
-            self.strokeColor = self.ballColor.CGColor;
-            self.lineWidth = 0.5;
-            self.lineJoin = kCALineJoinRound;
-            self.lineCap = kCALineCapRound;
-            self.path = [CMPathMaker eflogoPathH60];
-            self.strokeEnd = 0;
-            self.frame = CGRectZero;  // Update self frame
-        } break;
-            
-        default: {
-        } break;
-    }
-}
-
 #pragma mark - Update
 - (void)updatePath {
-    switch (self.pathType) {
-        case CMPathTypeNone: {
-        } break;
-            
-        case CMPathTypeBall: {
-            CGRect bounds = self.bounds;
-            CGFloat circleWidth = MIN(bounds.size.width, bounds.size.height);
-            CGFloat radius = circleWidth * 0.5;
-            CGPoint center = CGPointMake(bounds.size.width * 0.5 + self.shakeOffset.x, bounds.size.height * 0.5 + self.shakeOffset.y);
-            CGFloat startAngle = 0 - M_PI_2;
-            CGFloat endAngle = M_PI * 2 - M_PI_2;
-            BOOL clockwise = YES;
-            
-            self.path = [UIBezierPath bezierPathWithArcCenter: center
-                                                       radius: radius
-                                                   startAngle: startAngle
-                                                     endAngle: endAngle
-                                                    clockwise: clockwise].CGPath;
-        } break;
-            
-        case CMPathTypeAirplane: {
-        } break;
-            
-        case CMPathTypeCalender: {
-        } break;
-            
-        case CMPathTypeEFLogo: {
-        } break;
-            
-        default: {
-        } break;
-    }
+    CGRect bounds = self.bounds;
+    CGFloat circleWidth = MIN(bounds.size.width, bounds.size.height);
+    CGFloat radius = circleWidth * 0.5;
+    CGPoint center = CGPointMake(bounds.size.width * 0.5 + self.shakeOffset.x, bounds.size.height * 0.5 + self.shakeOffset.y);
+    CGFloat startAngle = 0 - M_PI_2;
+    CGFloat endAngle = M_PI * 2 - M_PI_2;
+    BOOL clockwise = YES;
+    
+    self.path = [UIBezierPath bezierPathWithArcCenter: center
+                                               radius: radius
+                                           startAngle: startAngle
+                                             endAngle: endAngle
+                                            clockwise: clockwise].CGPath;
 }
 
+#pragma mark - Public Show & Hide
 - (void)showLogo {
     self.fillColor = nil;
     [self.logoLayer showLogo];
@@ -233,6 +182,7 @@
     self.fillColor = self.ballColor.CGColor;
 }
 
+#pragma mark - Animation Control
 - (void)startAnimation {
     self.hidden = NO;
     

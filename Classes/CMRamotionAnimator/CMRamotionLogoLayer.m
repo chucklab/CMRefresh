@@ -1,5 +1,5 @@
 //
-//  CMLogoLayer.m
+//  CMRamotionLogoLayer.m
 //  CMRefresh
 //
 // *********************************************
@@ -22,14 +22,14 @@
 //  Copyright © 2017 Chuck Lab. All rights reserved.
 //
 
-#import "CMLogoLayer.h"
+#import "CMRamotionLogoLayer.h"
 #import "CMPathMaker.h"
 #import "CMEasing.h"
 
 //static NSString * const EndPointAnimationKey = @"EndPointAnimationKey";
 static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
-@interface CMLogoLayer () <CAAnimationDelegate>
+@interface CMRamotionLogoLayer () <CAAnimationDelegate>
 
 @property (nonatomic, copy) CMCompletion didEndAnimation;
 
@@ -41,29 +41,20 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 
 @end
 
-@implementation CMLogoLayer
+@implementation CMRamotionLogoLayer
 - (instancetype)init {
     self = [super init];
     if (self == nil) {
         return nil;
     }
     
-    MLog(@"[CMLogoLayer] --> init");
+    MLog(@"[CMRamotionLogoLayer] --> init");
     
     // Default Values
+    self.logoPathType = CMPathTypeAirplane;
     self.hidden = YES;
-//    self.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent: 0.3].CGColor;
+    //self.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent: 0.3].CGColor;
     
-    // Path
-    self.fillColor = nil;
-    self.strokeColor = self.logoColor.CGColor;
-    self.lineWidth = 1;
-    self.lineJoin = kCALineJoinRound;
-    self.lineCap = kCALineCapRound;
-    self.path = [CMPathMaker eflogoPathH60];
-    self.strokeEnd = 0;
-    self.frame = CGRectZero;  // Update self frame
-
     return self;
 }
 
@@ -73,13 +64,13 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
         return nil;
     }
     
-    MLog(@"[CMLogoLayer] --> initWithLayer");
+    MLog(@"[CMRamotionLogoLayer] --> initWithLayer");
     
     return self;
 }
 
 - (void)dealloc {
-    MLog(@"[CMLogoLayer] --> (%@) --> dealloc", self);
+    MLog(@"[CMRamotionLogoLayer] --> (%@) --> dealloc", self);
 }
 
 #pragma mark - Getters & Setters
@@ -89,17 +80,17 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
 }
 
 - (void)setFrame:(CGRect)frame {
-    ULog(@"Logo frame(oringn): %@", NSStringFromCGRect(frame));
+    ULog(@"Logo frame: %@", NSStringFromCGRect(frame));
     /*********************
      *  Update self frame
      ********************/
-    if (self.path) {
+    if (self.path && !CGRectEqualToRect(frame, CGRectZero)) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             __block CGRect newFrame = frame;
             UIBezierPath *bezierPath = [UIBezierPath bezierPathWithCGPath: self.path];
+            CGRect pathRect = bezierPath.bounds;
             
             // Make Scale
-            CGRect pathRect = bezierPath.bounds;
             CGFloat scale;
             const CGFloat Margin = 7;
             if ((pathRect.size.width + Margin * 2) / (pathRect.size.height + Margin * 2) >= newFrame.size.width / newFrame.size.height) {
@@ -115,13 +106,64 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
                                       bezierPath.bounds.size.width * scale,
                                       bezierPath.bounds.size.height * scale);
                 
-                ULog(@"Logo frame: %@", NSStringFromCGRect(newFrame));
+                ULog(@"New Logo frame: %@", NSStringFromCGRect(newFrame));
                 [super setFrame: newFrame];
             });
         });
+    } else {
+        [super setFrame: frame];
     }
 }
 
+- (void)setLogoPathType:(CMPathType)logoPathType {
+    _logoPathType = logoPathType;
+    
+    switch (logoPathType) {
+        case CMPathTypeNone: {
+            self.path = nil;
+        } break;
+            
+        case CMPathTypeAirplane: {
+            SLog(@"Changing to --> CMPathTypeAirplane");
+            self.fillColor = nil;
+            self.strokeColor = self.logoColor.CGColor;
+            self.lineWidth = 1;
+            self.lineJoin = kCALineJoinRound;
+            self.lineCap = kCALineCapRound;
+            self.path = [CMPathMaker airplanePath];
+            self.strokeEnd = 0;
+        } break;
+            
+        case CMPathTypeCalender: {
+            SLog(@"Changing to --> CMPathTypeCalender");
+            self.fillColor = nil;
+            self.strokeColor = self.logoColor.CGColor;
+            self.lineWidth = 1;
+            self.lineJoin = kCALineJoinRound;
+            self.lineCap = kCALineCapRound;
+            self.path = [CMPathMaker calenderPath];
+            self.strokeEnd = 0;
+        } break;
+            
+        case CMPathTypeEFLogo: {
+            SLog(@"Changing to --> CMPathTypeEFLogo");
+            self.fillColor = nil;
+            self.strokeColor = self.logoColor.CGColor;
+            self.lineWidth = 1;
+            self.lineJoin = kCALineJoinRound;
+            self.lineCap = kCALineCapRound;
+            self.path = [CMPathMaker eflogoPathH60];
+            self.strokeEnd = 0;
+        } break;
+            
+        default: {
+        } break;
+    }
+    
+    self.frame = CGRectZero;  // Update self frame
+}
+
+#pragma mark - Animation Control
 - (void)startAnimation {
     [self groupAnimation];
 }

@@ -26,14 +26,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "CMCommon.h"
-
-typedef enum CMPathType {
-    CMPathTypeNone,
-    CMPathTypeBall,
-    CMPathTypeAirplane,
-    CMPathTypeCalender,
-    CMPathTypeEFLogo,
-} CMPathType;
+#import "CMPathMaker.h"
 
 @class CMRamotionSpinerLayer;
 
@@ -44,14 +37,17 @@ typedef enum CMPathType {
 @property (nonatomic, strong) UIColor *ballColor;
 @property (nonatomic, assign) CFTimeInterval upDuration;
 
-@property (nonatomic, assign) CMPathType pathType;
+// Logo path type
+@property (nonatomic, assign) CMPathType logoPathType;
 
 @property (nonatomic, assign) float displaySpeed;
 @property (nonatomic, assign) CGPoint shakeOffset;
 
+#pragma mark - Animation Control
 - (void)startAnimation;
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 
+#pragma mark - Public Show & Hide
 - (void)showLogo;
 - (void)hideLogo;
 

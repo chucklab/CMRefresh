@@ -94,6 +94,7 @@
         [superview.layer addSublayer: self.bounceLayer];
     }
     self.bounceLayer.scroll = scroll;
+    self.bounceLayer.logoPathType = self.logoPathType;
 }
 
 
@@ -175,6 +176,7 @@
 #pragma mark - Touch Handling
 - (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 0.3;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 5;
     [self.bounceLayer.ballLayer.circleLayer showLogo];
 }
 
@@ -183,17 +185,25 @@
 
 - (void)refresh:(CMRefreshComponent *) view touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
     [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    self.bounceLayer.ballLayer.circleLayer.spiner.lineWidth = 4;
     [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 #pragma mark - Getters & Setters
 - (UIView *)view {
     return self;
+}
+
+- (void)setLogoPathType:(CMPathType)logoPathType {
+    _logoPathType = logoPathType;
+    
+    self.bounceLayer.logoPathType = logoPathType;
 }
 
 #pragma mark - Helper

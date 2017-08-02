@@ -28,6 +28,7 @@
 #import "CMCommon.h"
 #import "CMRamotionCircleLayer.h"
 #import "CMRamotionSpinerLayer.h"
+#import "CMPathMaker.h"
 
 @class CMRamotionCircleLayer;
 
@@ -37,6 +38,9 @@
 @property (nonatomic, assign) CFTimeInterval upDuration;
 @property (nonatomic, assign) CGFloat moveUpDist;
 @property (nonatomic, strong) UIColor *ballColor;
+
+// Logo path type
+@property (nonatomic, assign) CMPathType logoPathType;
 
 @property (nonatomic, strong) CMRamotionCircleLayer *circleLayer;
 

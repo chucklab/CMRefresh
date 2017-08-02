@@ -43,6 +43,7 @@
      ****************/
     self.circleLayer = [[CMRamotionCircleLayer alloc] init];
     [self addSublayer: self.circleLayer];
+    self.circleLayer.logoPathType = self.logoPathType;
     
     return self;
 }
@@ -53,6 +54,12 @@
 }
 
 #pragma mark - Getters & Setters
+- (void)setLogoPathType:(CMPathType)logoPathType {
+    _logoPathType = logoPathType;
+    
+    self.circleLayer.logoPathType = logoPathType;
+}
+
 - (void)setBallColor:(UIColor *)ballColor {
     _ballColor = ballColor;
     self.circleLayer.ballColor = ballColor;

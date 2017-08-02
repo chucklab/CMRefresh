@@ -12,11 +12,11 @@
 		4C1580A41F175CC70014CC3E /* CMRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A31F175CC70014CC3E /* CMRefreshFooterView.m */; };
 		4C1580A81F1769A50014CC3E /* CMNormalFooterAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1580A71F1769A50014CC3E /* CMNormalFooterAnimator.m */; };
 		4C2C0F491F15E7480019C2A1 /* CMCommonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C0F481F15E7480019C2A1 /* CMCommonExtension.m */; };
+		4C44B0801F319CD0004F5225 /* CMRamotionLogoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44B07E1F319CD0004F5225 /* CMRamotionLogoLayer.m */; };
 		4CBAA2471F2F27C4003C2E68 /* CMPathMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAA2461F2F27C4003C2E68 /* CMPathMaker.m */; };
 		4CC4AF7C1F2B040800CA2542 /* CMEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4AF7B1F2B040800CA2542 /* CMEasing.m */; };
 		4CF1EA711F3052170018F5F4 /* CMLogoAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */; };
 		4CF1EA741F3055940018F5F4 /* CMLogoAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA731F3055940018F5F4 /* CMLogoAnimatorViewController.m */; };
-		4CF1EA771F3057760018F5F4 /* CMLogoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */; };
 		4CF2B4F71F131B0200E8AD5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F61F131B0200E8AD5F /* main.m */; };
 		4CF2B4FA1F131B0200E8AD5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4F91F131B0200E8AD5F /* AppDelegate.m */; };
 		4CF2B4FD1F131B0200E8AD5F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2B4FC1F131B0200E8AD5F /* ViewController.m */; };
@@ -47,6 +47,8 @@
 		4C1580A71F1769A50014CC3E /* CMNormalFooterAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNormalFooterAnimator.m; sourceTree = "<group>"; };
 		4C2C0F471F15E7480019C2A1 /* CMCommonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCommonExtension.h; sourceTree = "<group>"; };
 		4C2C0F481F15E7480019C2A1 /* CMCommonExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCommonExtension.m; sourceTree = "<group>"; };
+		4C44B07E1F319CD0004F5225 /* CMRamotionLogoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRamotionLogoLayer.m; sourceTree = "<group>"; };
+		4C44B07F1F319CD0004F5225 /* CMRamotionLogoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRamotionLogoLayer.h; sourceTree = "<group>"; };
 		4CBAA2451F2F27C4003C2E68 /* CMPathMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPathMaker.h; sourceTree = "<group>"; };
 		4CBAA2461F2F27C4003C2E68 /* CMPathMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPathMaker.m; sourceTree = "<group>"; };
 		4CC4AF7A1F2B040800CA2542 /* CMEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEasing.h; sourceTree = "<group>"; };
@@ -55,8 +57,6 @@
 		4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoAnimator.m; sourceTree = "<group>"; };
 		4CF1EA721F3055940018F5F4 /* CMLogoAnimatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogoAnimatorViewController.h; sourceTree = "<group>"; };
 		4CF1EA731F3055940018F5F4 /* CMLogoAnimatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoAnimatorViewController.m; sourceTree = "<group>"; };
-		4CF1EA751F3057760018F5F4 /* CMLogoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogoLayer.h; sourceTree = "<group>"; };
-		4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogoLayer.m; sourceTree = "<group>"; };
 		4CF2B4F21F131B0200E8AD5F /* CMRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF2B4F61F131B0200E8AD5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CF2B4F81F131B0200E8AD5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,8 +118,6 @@
 			children = (
 				4CF1EA6F1F3052170018F5F4 /* CMLogoAnimator.h */,
 				4CF1EA701F3052170018F5F4 /* CMLogoAnimator.m */,
-				4CF1EA751F3057760018F5F4 /* CMLogoLayer.h */,
-				4CF1EA761F3057760018F5F4 /* CMLogoLayer.m */,
 			);
 			path = CMLogoAnimator;
 			sourceTree = "<group>";
@@ -214,6 +212,8 @@
 				4CF9E7881F136A2400C536AD /* CMRamotionBallLayer.m */,
 				4C0A48AD1F301B74005CDF1F /* CMRamotionCircleLayer.h */,
 				4C0A48AE1F301B74005CDF1F /* CMRamotionCircleLayer.m */,
+				4C44B07F1F319CD0004F5225 /* CMRamotionLogoLayer.h */,
+				4C44B07E1F319CD0004F5225 /* CMRamotionLogoLayer.m */,
 				4C0A48B01F301BB4005CDF1F /* CMRamotionSpinerLayer.h */,
 				4C0A48B11F301BB4005CDF1F /* CMRamotionSpinerLayer.m */,
 			);
@@ -373,7 +373,7 @@
 				4CF9E7791F1341D100C536AD /* CMRefreshComponent.m in Sources */,
 				4CF2B4FA1F131B0200E8AD5F /* AppDelegate.m in Sources */,
 				4C0A48B21F301BB4005CDF1F /* CMRamotionSpinerLayer.m in Sources */,
-				4CF1EA771F3057760018F5F4 /* CMLogoLayer.m in Sources */,
+				4C44B0801F319CD0004F5225 /* CMRamotionLogoLayer.m in Sources */,
 				4CF780271F148F7100C346D4 /* CMRamotionAnimatorViewController.m in Sources */,
 				4CF9E7831F13694B00C536AD /* CMRamotionBounceLayer.m in Sources */,
 				4CBAA2471F2F27C4003C2E68 /* CMPathMaker.m in Sources */,
