@@ -34,4 +34,8 @@
 - (void)startAnimation;
 - (void)stopAnimation:(BOOL) animated complition:(CMCompletion) complition;
 
+#pragma mark - Public Show & Hide
+- (void)showLogo;
+- (void)hideLogo;
+
 @end

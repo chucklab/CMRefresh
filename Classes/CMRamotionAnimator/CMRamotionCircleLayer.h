@@ -52,5 +52,8 @@ typedef enum CMPathType {
 - (void)startAnimation;
 - (void)endAnimation:(BOOL) animated complition:(CMCompletion) complition;
 
+- (void)showLogo;
+- (void)hideLogo;
+
 @end
 

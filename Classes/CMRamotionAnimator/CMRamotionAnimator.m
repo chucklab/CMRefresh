@@ -175,6 +175,7 @@
 #pragma mark - Touch Handling
 - (void)refresh:(CMRefreshComponent *) view touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 0.3;
+    [self.bounceLayer.ballLayer.circleLayer showLogo];
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -182,10 +183,12 @@
 
 - (void)refresh:(CMRefreshComponent *) view touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 - (void)refresh:(CMRefreshComponent *) view touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.bounceLayer.ballLayer.circleLayer.spiner.displaySpeed = 1.0;
+    [self.bounceLayer.ballLayer.circleLayer hideLogo];
 }
 
 #pragma mark - Getters & Setters

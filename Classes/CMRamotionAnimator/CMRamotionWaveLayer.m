@@ -24,7 +24,6 @@
 
 #import "CMRamotionWaveLayer.h"
 #import "CMCommon.h"
-#import "CMLogoLayer.h"
 
 static const CGFloat ReferenceWitdh = 150;
 static const CGFloat ReferenceHeight = 50;
@@ -33,8 +32,6 @@ static const CGFloat ReferenceHeight = 50;
 
 // Top wavelayer
 @property (nonatomic, strong) CAShapeLayer *waveLayer;
-
-@property (nonatomic, strong) CMLogoLayer *logoLayer;
 
 // Animation duration
 @property (nonatomic, assign) CFTimeInterval bounceDuration;
@@ -76,8 +73,6 @@ static const CGFloat ReferenceHeight = 50;
     [self initWave];
     [self initReferenceLayer];
     
-    [self setupLogoLayer];
-    
     return self;
 }
 
@@ -103,21 +98,6 @@ static const CGFloat ReferenceHeight = 50;
                                       -ReferenceHeight * 0.5,
                                       ReferenceWitdh,
                                       ReferenceHeight);
-    
-    // Logo layer
-    self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.execute);
-}
-
-#pragma mark - UI Setups
-- (void)setupLogoLayer {
-    if (self.logoLayer) {
-        return;
-    }
-    
-    self.logoLayer = [[CMLogoLayer alloc] init];
-    [self addSublayer: self.logoLayer];
-    self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.execute);
-    self.logoLayer.logoColor = [UIColor whiteColor];
 }
 
 - (void)initWave {
@@ -143,20 +123,6 @@ static const CGFloat ReferenceHeight = 50;
 - (void)wave:(CGFloat) y execute:(CGFloat) execute {
     self.execute = execute;
     self.waveLayer.path = [self wavePath: 0 y: y];
-    
-    if (y < execute) {
-//        CGFloat strokeEnd = MAX(0, progress);
-//        strokeEnd = MIN(1, progress);
-//        self.logoLayer.strokeEnd = strokeEnd;
-        self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, y);
-//        if (progress >= 1.0 - CMFloat_Epsinon) {
-//            self.logoLayer.fillColor = self.logoLayer.logoColor.CGColor;
-//        } else {
-//            self.logoLayer.fillColor = nil;
-//        }
-    } else {
-        self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, execute);
-    }
 }
 
 - (void)startAnimation {

@@ -26,6 +26,7 @@
 #import "CMRamotionSpinerLayer.h"
 #import "CMPathMaker.h"
 #import "CMEasing.h"
+#import "CMLogoLayer.h"
 
 //static NSString * const EndPointAnimationKey = @"EndPointAnimationKey";
 //static NSString * const GroupAnimationKey = @"GroupAnimationKey";
@@ -39,6 +40,8 @@
 @property (nonatomic, assign) int displayCount;
 @property (nonatomic, assign) CFTimeInterval elapsedTime;
 @property (nonatomic, assign) CFTimeInterval lastDisplayTimestamp;
+
+@property (nonatomic, strong) CMLogoLayer *logoLayer;
 
 @end
 
@@ -60,11 +63,15 @@
     
     
     /**************
+     *  Logo
+     *************/
+    [self setupLogoLayer];
+    
+    /**************
      *  Spiner
      *************/
     self.spiner = [[CMRamotionSpinerLayer alloc] init];
     [self addSublayer:self.spiner];
-    
     
     /**************
      *  Display
@@ -91,44 +98,36 @@
     [self endAnimation: NO complition: nil];
 }
 
+#pragma mark - UI Setups
+- (void)setupLogoLayer {
+    if (self.logoLayer) {
+        return;
+    }
+    
+    self.logoLayer = [[CMLogoLayer alloc] init];
+    [self addSublayer: self.logoLayer];
+    self.logoLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    self.logoLayer.logoColor = self.ballColor;
+}
+
 #pragma mark - Getters & Setters
 - (void)setBallColor:(UIColor *)ballColor {
     _ballColor = ballColor;
     
     self.spiner.ballColor = ballColor;
+    self.logoLayer.logoColor = ballColor;
     
     self.pathType = self.pathType;
 }
 
 - (void)setFrame:(CGRect)frame {
-    ULog(@"Circle frame(oringn): %@", NSStringFromCGRect(frame));
-    
-    self.spiner.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    
-    /*********************
-     *  Update self frame
-     ********************/
-//    if (self.path) {
-//        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithCGPath: self.path];
-//        
-//        // Make Scale
-//        CGRect pathRect = bezierPath.bounds;
-//        CGFloat scale;
-//        const CGFloat Margin = 10;
-//        if (pathRect.size.width / (pathRect.size.height + Margin * 2) >= frame.size.width / frame.size.height) {
-//            scale = frame.size.width / pathRect.size.width;
-//        }else {
-//            scale = frame.size.height / (pathRect.size.height + Margin * 2);
-//        }
-//        
-//        self.transform = CATransform3DMakeScale(scale, scale, 1);
-//        frame = CGRectMake(frame.size.width * 0.5 - bezierPath.bounds.size.width * scale * 0.5,
-//                           Margin * scale,
-//                           bezierPath.bounds.size.width * scale,
-//                           bezierPath.bounds.size.height * scale);
-//    }
-    
     ULog(@"Circle frame: %@", NSStringFromCGRect(frame));
+    
+    // Logo layer
+    self.logoLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    
+    // Spiner layer
+    self.spiner.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
     
     [super setFrame: frame];
     
@@ -146,6 +145,7 @@
     
     switch (self.pathType) {
         case CMPathTypeNone: {
+            self.path = nil;
         } break;
             
         case CMPathTypeBall: {
@@ -221,6 +221,16 @@
         default: {
         } break;
     }
+}
+
+- (void)showLogo {
+    self.fillColor = nil;
+    [self.logoLayer showLogo];
+}
+
+- (void)hideLogo {
+    [self.logoLayer hideLogo];
+    self.fillColor = self.ballColor.CGColor;
 }
 
 - (void)startAnimation {
@@ -319,7 +329,7 @@
 
 #pragma mark - Display
 - (void)displayAction {
-    
+#if 0
     // Duration
     const CGFloat StrokeEndStartTime = 0.2;
     const CGFloat StrokeEndDuration = 1.0;
@@ -396,6 +406,8 @@
      *  Update Display Timestamp
      ****************************/
     self.lastDisplayTimestamp = self.displayLink.timestamp;
+    
+#endif
 }
 
 - (void)addDisPlay {
