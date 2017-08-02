@@ -50,6 +50,12 @@
     MLog(@"[CMRefreshHeaderView] --> dealloc");
 }
 
+#pragma mark - Setters & Getters
+- (void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+    ULog(@"CMRefreshHeaderView Frame: %@", NSStringFromCGRect(frame));
+}
+
 #pragma mark - Overwrite
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
@@ -168,9 +174,19 @@
 
 - (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
     //MFuncLog();
-    //CGRect rect = [change[NSKeyValueChangeNewKey] CGRectValue];
-    //SLog(@"frameChange: %@", NSStringFromCGRect(rect));
     
+    CGRect changeFrame = [change[NSKeyValueChangeNewKey] CGRectValue];
+    ULog(@"frameChange: %@", NSStringFromCGRect(changeFrame));
+    
+    if (CGRectEqualToRect(CGRectZero, changeFrame)) {
+        return;
+    }
+    
+    // Update Self Frame
+    CGFloat headerH = self.animator.execute;
+    self.frame = CGRectMake(0, -headerH, changeFrame.size.width, headerH);
+    
+    // Update Animator
     [self.animator refresh: self scrollFrameChange: self.scrollView.frame];
 }
 
