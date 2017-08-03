@@ -193,11 +193,9 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
     self.isRefreshing = NO;
 }
 
-- (void)sizeChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {}
-
-- (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {}
-
-- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {}
+- (void)sizeChange: (CGSize) contentSize {}
+- (void)offsetChange: (CGPoint) contentOffset {}
+- (void)frameChange: (CGRect) frame {}
 
 #pragma mark - Observer Methods
 - (void)removeObserver {
@@ -267,9 +265,9 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
     }
     
     if ([keyPath isEqualToString:ContentSizeKeyPath]) {
-        [self sizeChange:change];
+        [self sizeChange: self.scrollView.contentSize];
     } else if ([keyPath isEqualToString:OffsetKeyPath]) {
-        [self offsetChange:change];
+        [self offsetChange: self.scrollView.contentOffset];
     } else if (
                [keyPath isEqualToString: FrameKeyPath] ||
                [keyPath isEqualToString: KeyPath_LayerBounds] ||
@@ -280,7 +278,7 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
                [keyPath isEqualToString: KeyPath_LayerAnchorPointZ] ||
                [keyPath isEqualToString: KeyPath_LayerFrame]
                ) {
-        [self frameChange:change];
+        [self frameChange: self.scrollView.frame];
     }
 }
 

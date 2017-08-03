@@ -113,7 +113,7 @@
     [self beginStop];
 }
 
-- (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+- (void)offsetChange: (CGPoint) contentOffset {
     UIScrollView *scrollView = self.scrollView;
     if (scrollView == nil) {
         return;
@@ -123,7 +123,7 @@
         return;
     }
     
-    [super offsetChange: change];
+    [super offsetChange: contentOffset];
     // Sectionheader stay solution
     if (self.isRefreshing) {
         if (self.window == nil) {
@@ -172,22 +172,21 @@
     }
 }
 
-- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+- (void)frameChange: (CGRect) frame {
     //MFuncLog();
     
-    CGRect changeFrame = [change[NSKeyValueChangeNewKey] CGRectValue];
-    ULog(@"frameChange: %@", NSStringFromCGRect(changeFrame));
-    
-    if (CGRectEqualToRect(CGRectZero, changeFrame)) {
+    if (CGRectEqualToRect(CGRectZero, frame)) {
         return;
     }
     
+    ULog(@"New Scroll Frame: %@", NSStringFromCGRect(frame));
+    
     // Update Self Frame
     CGFloat headerH = self.animator.execute;
-    self.frame = CGRectMake(0, -headerH, changeFrame.size.width, headerH);
+    self.frame = CGRectMake(0, -headerH, frame.size.width, headerH);
     
     // Update Animator
-    [self.animator refresh: self scrollFrameChange: self.scrollView.frame];
+    [self.animator refresh: self scrollFrameChange: frame];
 }
 
 #pragma mark - Helpers

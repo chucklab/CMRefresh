@@ -59,8 +59,8 @@ typedef enum CMRefreshState {
 - (void)ignoreObserver:(BOOL) ignore;
 - (void)start;
 - (void)stop;
-- (void)sizeChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
-- (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
-- (void)frameChange:(NSDictionary<NSKeyValueChangeKey,id> *)change;
+- (void)sizeChange: (CGSize) contentSize;
+- (void)offsetChange: (CGPoint) contentOffset;
+- (void)frameChange: (CGRect) frame;
 
 @end

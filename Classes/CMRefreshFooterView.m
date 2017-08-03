@@ -153,13 +153,13 @@
     }
 }
 
-- (void)sizeChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+- (void)sizeChange: (CGSize) contentSize {
     UIScrollView *scrollView = self.scrollView;
     if (scrollView == nil) {
         return;
     }
     
-    [super sizeChange: change];
+    [super sizeChange: contentSize];
     
     CGFloat targetY = scrollView.contentSize.height + self.scrollViewInsets.bottom;
     if (!CMFloatEqual(self.frame.origin.y, targetY)) {
@@ -170,7 +170,7 @@
     }
 }
 
-- (void)offsetChange:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+- (void)offsetChange: (CGPoint) contentOffset {
     UIScrollView *scrollView = self.scrollView;
     if (scrollView == nil) {
         return;
@@ -180,7 +180,7 @@
         return;
     }
     
-    [super offsetChange: change];
+    [super offsetChange: contentOffset];
     
     if (self.isRefreshing || self.noMoreData || self.isHidden) {
         // No changes occur when loading more or content is empty
