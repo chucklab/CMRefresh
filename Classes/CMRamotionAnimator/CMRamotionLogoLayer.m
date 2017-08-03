@@ -124,7 +124,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
         } break;
             
         case CMPathTypeAirplane: {
-            SLog(@"Changing to --> CMPathTypeAirplane");
+            ULog(@"Changing to --> CMPathTypeAirplane");
             self.fillColor = nil;
             self.strokeColor = self.logoColor.CGColor;
             self.lineWidth = 1;
@@ -135,7 +135,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
         } break;
             
         case CMPathTypeCalender: {
-            SLog(@"Changing to --> CMPathTypeCalender");
+            ULog(@"Changing to --> CMPathTypeCalender");
             self.fillColor = nil;
             self.strokeColor = self.logoColor.CGColor;
             self.lineWidth = 1;
@@ -146,7 +146,7 @@ static NSString * const GroupAnimationKey = @"GroupAnimationKey";
         } break;
             
         case CMPathTypeEFLogo: {
-            SLog(@"Changing to --> CMPathTypeEFLogo");
+            ULog(@"Changing to --> CMPathTypeEFLogo");
             self.fillColor = nil;
             self.strokeColor = self.logoColor.CGColor;
             self.lineWidth = 1;
