@@ -202,6 +202,13 @@
         if (self.spiner) {
             [self.spiner startAnimation];
         }
+        
+        /***********************
+         *  Process the handler
+         **********************/
+        if (self.handler) {
+            self.handler();
+        }
     });
 #endif
 }

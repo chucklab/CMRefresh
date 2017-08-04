@@ -114,6 +114,7 @@
         [self addSublayer: self.ballLayer];
         self.ballLayer.scroll = self.scroll;
         self.ballLayer.logoPathType = self.logoPathType;
+        self.ballLayer.handler = self.handler;
     }
     self.ballLayer.frame = CGRectMake(scrollViewFrame.size.width * 0.5 - BallW * 0.5 + scrollViewFrame.origin.x, self.execute + BallW + scrollViewFrame.origin.y, BallW, BallW);
 }
@@ -124,6 +125,11 @@
     self.ballLayer.logoPathType = logoPathType;
 }
 
+- (void)setHandler:(CMRefreshHandler)handler {
+    _handler = handler;
+    
+    self.ballLayer.handler = handler;
+}
 
 #pragma mark - Public Methods
 - (void)wave:(CGFloat) y {

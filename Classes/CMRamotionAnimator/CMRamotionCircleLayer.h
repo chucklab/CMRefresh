@@ -40,6 +40,9 @@
 // Logo path type
 @property (nonatomic, assign) CMPathType logoPathType;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
+
 @property (nonatomic, assign) float displaySpeed;
 @property (nonatomic, assign) CGPoint shakeOffset;
 

@@ -43,4 +43,7 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
+
 @end

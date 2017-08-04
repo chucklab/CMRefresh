@@ -42,6 +42,9 @@
 // Logo path type
 @property (nonatomic, assign) CMPathType logoPathType;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
+
 @property (nonatomic, strong) CMRamotionCircleLayer *circleLayer;
 
 - (void)startAnimation;

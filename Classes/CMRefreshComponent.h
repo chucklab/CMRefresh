@@ -25,10 +25,9 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+#import "CMCommon.h"
 
 @protocol CMRefreshProtocol;
-
-typedef void (^CMRefreshHandler)();
 
 typedef enum CMRefreshState {
     CMRefreshStateIdle, // Common idle

@@ -90,9 +90,6 @@
                          scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top);
                      } completion: ^(BOOL finished) {
                          dispatch_async(dispatch_get_main_queue(), ^{
-                             if (self.handler) {
-                                 self.handler();
-                             }
                              [self ignoreObserver: NO];
                              scrollView.bounces = self.scrollViewBounces;
                          });

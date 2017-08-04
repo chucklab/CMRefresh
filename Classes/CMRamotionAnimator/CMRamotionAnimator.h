@@ -42,6 +42,9 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
+
 // Logo path type
 @property (nonatomic, assign) CMPathType logoPathType;
 

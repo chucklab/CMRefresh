@@ -54,6 +54,12 @@
 }
 
 #pragma mark - Getters & Setters
+- (void)setHandler:(CMRefreshHandler)handler {
+    _handler = handler;
+    
+    self.circleLayer.handler = handler;
+}
+
 - (void)setLogoPathType:(CMPathType)logoPathType {
     _logoPathType = logoPathType;
     

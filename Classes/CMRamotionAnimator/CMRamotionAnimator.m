@@ -276,6 +276,12 @@
     return self;
 }
 
+- (void)setHandler:(CMRefreshHandler)handler {
+    _handler = handler;
+    
+    self.bounceLayer.handler = handler;
+}
+
 - (void)setLogoPathType:(CMPathType)logoPathType {
     _logoPathType = logoPathType;
     

@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CMPathMaker.h"
+#import "CMCommon.h"
 
 @class CMRamotionWaveLayer, CMRamotionBallLayer;
 
@@ -46,6 +47,8 @@
 // Connecting line
 @property (nonatomic, strong) CAShapeLayer *linkLayer;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
 
 - (instancetype)initWithExecute:(CGFloat) execute ballColor:(UIColor *) ballColor waveColor:(UIColor *) waveColor;
 

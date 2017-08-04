@@ -141,3 +141,5 @@ static inline UIFont * CMFont_DefaultBold(CGFloat size) {
  ***********************/
 typedef void (^CMCompletion)();
 
+typedef void (^CMRefreshHandler)();
+

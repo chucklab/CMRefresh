@@ -43,6 +43,10 @@
 // Animation execute height
 @property (nonatomic, assign) CGFloat execute;
 
+// Handler
+@property (nonatomic, copy) CMRefreshHandler handler;
+
+
 - (void)refreshBegin:(CMRefreshComponent *) view;
 - (void)refreshWillEnd:(CMRefreshComponent *) view;
 - (void)refreshEnd:(CMRefreshComponent *) view finish:(BOOL)finish;

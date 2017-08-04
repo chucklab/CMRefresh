@@ -72,6 +72,7 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
     
     self.handler = handler;
     self.animator = animator;
+    self.animator.handler = handler;
     
     return self;
 }
