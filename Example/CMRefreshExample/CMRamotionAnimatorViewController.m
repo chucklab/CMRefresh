@@ -27,13 +27,15 @@
     self.view.backgroundColor = [UIColor redColor];
     self.title = @"CMRamotionAnimator";
     
-    MCCommonTableView *tableView = [MCCommonTableView tableViewWithFrame:CGRectMake(0, 0, 1, 1)];
+    MCCommonTableView *tableView = [MCCommonTableView tableViewWithFrame: CGRectMake(0, 0, 1, 1)];
     self.tableView = tableView;
     [self.view addSubview:tableView];
     [tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.edges.equalTo(self.view);
     }];
     
+    
+#if 0
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [tableView mas_remakeConstraints:^(MASConstraintMaker *make){
             make.top.equalTo(self.view).offset(20);
@@ -42,6 +44,8 @@
             make.bottom.equalTo(self.view).offset(-20);
         }];
     });
+#endif
+    
     
     tableView.dataMap = @{
                           @"1. Day One" : @{
@@ -73,8 +77,10 @@
                                                                     waveColor: nil];
     animator.logoPathType = CMPathTypeAirplane;
     [tableView.cm addHeadRefreshWithAnimator: nil handler: ^{
-        //DLog(@"Refresh handler");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        // Refresh Handler ...
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             weakSelf.tableView.dataMap = @{
                                            @"1. Day One" : @{
                                                    @"1. Normal" : ^(){ DLog(@"Normal, tapped."); },
@@ -106,7 +112,9 @@
 //    [tableView.cm beginHeaderRefresh];
     
     [tableView.cm addFootRefreshWithAnimator: nil handler: ^{
-        //DLog(@"Footer Handler...");
+        
+        // Footer Handler ...
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (weakSelf.tableView.dataMap.count <= 3) {
                 weakSelf.tableView.dataMap = @{
@@ -147,8 +155,6 @@
     }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"End" style:UIBarButtonItemStylePlain target:self action:@selector(endRefresh)];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,10 +168,10 @@
 
 #pragma mark - Actions
 - (void)endRefresh {
+#if 0
     [self.tableView.cm endHeaderRefresh];
-    
     [self.tableView.cm noticeNoMoreData];
-    
+#endif
 }
 
 @end
