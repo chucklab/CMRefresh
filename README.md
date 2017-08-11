@@ -1,5 +1,5 @@
 <p align="left" >
-  <img src="logo.png" alt="CMRefresh" title="CMRefresh" width = "700">
+  <img src="logo.png" alt="CMRefresh" title="CMRefresh" width = "600">
 </p>
 
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/chucklab/CMRefresh/master/LICENSE)
