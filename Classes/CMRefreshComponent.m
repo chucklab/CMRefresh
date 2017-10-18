@@ -286,22 +286,30 @@ static NSString * const KeyPath_LayerFrame = @"layer.frame";
 #pragma mark - Touch Handling
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     ULog(@"touchesBegan");
-    [self.animator refresh: self touchesBegan: touches withEvent: event];
+    if ([self.animator respondsToSelector:@selector(refresh:touchesBegan:withEvent:)]) {
+        [self.animator refresh: self touchesBegan: touches withEvent: event];
+    }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     ULog(@"touchesMoved");
-    [self.animator refresh: self touchesMoved: touches withEvent: event];
+    if ([self.animator respondsToSelector:@selector(refresh:touchesMoved:withEvent:)]) {
+        [self.animator refresh: self touchesMoved: touches withEvent: event];
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     ULog(@"touchesEnded");
-    [self.animator refresh: self touchesEnded: touches withEvent: event];
+    if ([self.animator respondsToSelector:@selector(refresh:touchesEnded:withEvent:)]) {
+        [self.animator refresh: self touchesEnded: touches withEvent: event];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     ULog(@"touchesCancelled");
-    [self.animator refresh: self touchesCancelled: touches withEvent: event];
+    if ([self.animator respondsToSelector:@selector(refresh:touchesCancelled:withEvent:)]) {
+        [self.animator refresh: self touchesCancelled: touches withEvent: event];
+    }
 }
 
 @end
