@@ -13,6 +13,8 @@ Some util refresh categories for UIScrollView and it's subclasses, which write i
 
 ![CMRefreshDemo_1-w100](Screenshots/CMRefreshDemo_1.gif)
 
+![CMRefresh_EFLogo-w100](Screenshots/CMRefresh_EFLogo.mov)
+
 ## Installation
 ### Cocoapods:
 
