@@ -11,10 +11,9 @@
 
 Some util refresh categories for UIScrollView and it's subclasses, which write in Objective-C, wish you love it, enjoy the code:D
 
-![CMRefreshDemo_1-w100](Screenshots/CMRefreshDemo_1.gif)
-
 ![CMRefresh_EFLogo-w100](Screenshots/CMRefresh_EFLogo.gif)
 
+![CMRefresh_Airplane-w100](Screenshots/CMRefresh_Airplane.gif)
 
 ## Installation
 ### Cocoapods:
