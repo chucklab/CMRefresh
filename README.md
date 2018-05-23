@@ -16,7 +16,7 @@ Some util refresh categories for UIScrollView and it's subclasses, which write i
 ![CMRefresh_EFLogo-w100](Screenshots/CMRefresh_EFLogo.mov)
 
 <video id="video" controls="" preload="none" poster="">
-      <source id="mov" src="https://github.com/chucklab/CMRefresh/blob/master/Screenshots/CMRefresh_EFLogo.mov" type="video/mov">
+      <source id="mp4" src="https://github.com/chucklab/CMRefresh/blob/master/Screenshots/CMRefresh_EFLogo.mp4" type="video/mp4">
     </video>
 
 ## Installation
