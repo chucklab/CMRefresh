@@ -15,6 +15,10 @@ Some util refresh categories for UIScrollView and it's subclasses, which write i
 
 ![CMRefresh_EFLogo-w100](Screenshots/CMRefresh_EFLogo.mov)
 
+<video id="video" controls="" preload="none" poster="">
+      <source id="mov" src="Screenshots/CMRefresh_EFLogo.mov" type="video/mov">
+    </video>
+
 ## Installation
 ### Cocoapods:
 
